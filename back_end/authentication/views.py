@@ -29,7 +29,7 @@ class LogoutView(APIView):
         return Response({'message': 'User logged out'}, status=status.HTTP_200_OK)
     
 
-class SignupView(CreateAPIView):
+class RegisterView(CreateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = SignupSerializer
     
