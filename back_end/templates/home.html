@@ -4,5 +4,15 @@
     </head>
     <body>
         <h1>Welcome to the home page!</h1>
+        <ul>
+            <li><a href="{% url 'schema' %}">Schema</a></li>
+            <li><a href="{% url 'swagger-ui' %}">Swagger UI</a></li>
+        </ul>
+        <h2>Authentication</h2>
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+        </ul>
     </body>
 </html>
