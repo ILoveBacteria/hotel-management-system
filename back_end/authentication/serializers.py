@@ -19,3 +19,7 @@ class SignupSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         return get_user_model().objects.create_user(**validated_data)
+    
+
+class MessageSerializer(serializers.Serializer):
+    message = serializers.CharField()
