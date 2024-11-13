@@ -3,10 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from drf_spectacular.utils import extend_schema_view
 
-from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
-
-from authentication.serializers import LoginSerializer, SignupSerializer, MessageSerializer
+from authentication.serializers import LoginSerializer, SignupSerializer
 from authentication.swagger import login_documentation, logout_documentation, register_documentation
 from authentication import message
 
