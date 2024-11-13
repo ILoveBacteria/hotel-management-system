@@ -8,6 +8,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExam
 
 from authentication.serializers import LoginSerializer, SignupSerializer, MessageSerializer
 from authentication.swagger import login_documentation, logout_documentation, register_documentation
+from authentication import message
 
 
 @extend_schema_view(**login_documentation)
@@ -17,23 +18,23 @@ class LoginView(GenericAPIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
-            errors = {'message': 'Serializer validation error', **serializer.errors}
+            errors = {'message': message.SERIALIZER_VALIDATION_ERROR, **serializer.errors}
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
         user = authenticate(request, username=serializer.validated_data['username'], password=serializer.validated_data['password'])
         if user is None:
-            return Response({'message': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': message.INVALID_USERNAME_OR_PASSWORD}, status=status.HTTP_400_BAD_REQUEST)
         login(request, user)
-        return Response({'message': 'User logged in'}, status=status.HTTP_200_OK)
+        return Response({'message': message.USER_LOGGED_IN}, status=status.HTTP_200_OK)
     
 
 @extend_schema_view(**logout_documentation)
 class LogoutView(APIView):
     def post(self, request):
         if request.user.is_anonymous:
-            return Response({'message': 'User is not logged in'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': message.USER_NOT_LOGGED_IN}, status=status.HTTP_400_BAD_REQUEST)
         logout(request)
-        return Response({'message': 'User logged out'}, status=status.HTTP_200_OK)
-    
+        return Response({'message': message.USER_LOGGED_OUT}, status=status.HTTP_200_OK)
+
 
 @extend_schema_view(**register_documentation)
 class RegisterView(CreateAPIView):
@@ -42,10 +43,10 @@ class RegisterView(CreateAPIView):
     
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return Response({'message': 'User is already logged in'}, status=status.HTTP_400_BAD_REQUEST)
-        super().post(request, *args, **kwargs)
+            return Response({'message': message.USER_ALREADY_LOGGED_IN}, status=status.HTTP_400_BAD_REQUEST)
+        response = super().post(request, *args, **kwargs)
         login(request, self.user)
-        return Response({'message': 'User signed up and logged in'}, status=status.HTTP_201_CREATED)
+        return Response({'message': message.USER_SIGNED_UP_AND_LOGGED_IN}, status=status.HTTP_201_CREATED)
     
     def perform_create(self, serializer):
         self.user = serializer.save()
