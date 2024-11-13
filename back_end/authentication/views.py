@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
 
 from authentication.serializers import LoginSerializer, SignupSerializer, MessageSerializer
-from authentication.swagger import login_documentation
+from authentication.swagger import login_documentation, logout_documentation, register_documentation
 
 
 @extend_schema_view(**login_documentation)
@@ -26,16 +26,7 @@ class LoginView(GenericAPIView):
         return Response({'message': 'User logged in'}, status=status.HTTP_200_OK)
     
 
-@extend_schema_view(
-    post=extend_schema(
-        summary="User Logout",
-        description="Endpoint for user logout",
-        responses={
-            200: "Logout successful",
-            400: "User is not logged in",
-        },
-    )
-)
+@extend_schema_view(**logout_documentation)
 class LogoutView(APIView):
     def post(self, request):
         if request.user.is_anonymous:
@@ -44,14 +35,7 @@ class LogoutView(APIView):
         return Response({'message': 'User logged out'}, status=status.HTTP_200_OK)
     
 
-@extend_schema_view(
-    post=extend_schema(
-        summary="User Signup",
-        description="Endpoint for user registration",
-        request=SignupSerializer,
-        responses={201: SignupSerializer},
-    )
-)
+@extend_schema_view(**register_documentation)
 class RegisterView(CreateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = SignupSerializer

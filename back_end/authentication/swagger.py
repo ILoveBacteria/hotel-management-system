@@ -44,3 +44,55 @@ login_documentation = {
         ],
     )
 }
+
+logout_documentation = {
+    'post': extend_schema(
+        summary="User Logout",
+        description="Endpoint for user logout",
+        responses={
+            200: MessageSerializer,
+            400: MessageSerializer,
+        },
+        examples=[
+            OpenApiExample(
+                name='User is not logged in',
+                description='User is not logged in',
+                value={'message': 'User is not logged in'},
+                status_codes=[400],
+                response_only=True,
+            ),
+            OpenApiExample(
+                name='User logged out',
+                description='User successfully logged out',
+                value={'message': 'User logged out'},
+                status_codes=[200],
+                response_only=True,
+            ),
+        ],
+    )
+}
+
+register_documentation = {
+    'post': extend_schema(
+        summary="User Signup",
+        description="Endpoint for user registration",
+        request=SignupSerializer,
+        responses={201: SignupSerializer},
+        examples=[
+            OpenApiExample(
+                name='User is already logged in',
+                description='User is already logged in',
+                value={'message': 'User is already logged in'},
+                status_codes=[400],
+                response_only=True,
+            ),
+            OpenApiExample(
+                name='User signed up and logged in',
+                description='User successfully signed up and logged in',
+                value={'message': 'User signed up and logged in'},
+                status_codes=[201],
+                response_only=True,
+            ),
+        ],
+    )
+}
