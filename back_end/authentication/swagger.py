@@ -29,7 +29,6 @@ login_documentation = {
                 name='Serializer error',
                 description='Serializer validation error',
                 value={
-                    'message': 'Serializer validation error',
                     'username': ['This field may not be blank.'], 
                     'password': ['This field may not be blank.']
                     },
@@ -83,6 +82,25 @@ register_documentation = {
                 description='User successfully signed up and logged in',
                 value={'message': message.USER_SIGNED_UP_AND_LOGGED_IN},
                 status_codes=[201],
+                response_only=True,
+            ),
+            OpenApiExample(
+                name='Serializer error',
+                description='Serializer validation error',
+                value={
+                    'first_name': ['This field may not be blank.'], 
+                    'last_name': ['This field may not be blank.'],
+                    'username': [
+                        'This field may not be blank.', 
+                        'A user with that username already exists.'
+                        ],
+                    'email': [
+                        'This field may not be blank.', 
+                        'Enter a valid email address.'
+                        ],
+                    'password': ['This field may not be blank.']
+                    },
+                status_codes=[400],
                 response_only=True,
             ),
         ],

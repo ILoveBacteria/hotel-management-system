@@ -1,6 +1,5 @@
 # Define message constants
 
-SERIALIZER_VALIDATION_ERROR = 'Serializer validation error'
 INVALID_USERNAME_OR_PASSWORD = 'Invalid username or password'
 USER_LOGGED_IN = 'User logged in'
 USER_NOT_LOGGED_IN = 'User is not logged in'
