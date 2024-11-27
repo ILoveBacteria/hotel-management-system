@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
+from users.models import GuestProfile
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -18,7 +20,9 @@ class SignupSerializer(serializers.ModelSerializer):
         }
         
     def create(self, validated_data):
-        return get_user_model().objects.create_user(**validated_data)
+        user = get_user_model().objects.create_user(**validated_data)
+        GuestProfile.objects.create(user=user)
+        return user
     
 
 class MessageSerializer(serializers.Serializer):
