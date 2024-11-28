@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path('auth/', include('authentication.urls')),
@@ -26,4 +27,4 @@ urlpatterns = [
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('admin/', admin.site.urls),
     path('', lambda request: render(request, 'home.html')),
-]
+] + debug_toolbar_urls()
