@@ -10,3 +10,9 @@ class UserProfileView(RetrieveAPIView):
     serializer_class = UserProfileSerializer
     queryset = get_user_model().objects.all()
     
+
+class CurrentUserProfileView(RetrieveAPIView):
+    serializer_class = UserProfileSerializer
+
+    def get_object(self):
+        return self.request.user
