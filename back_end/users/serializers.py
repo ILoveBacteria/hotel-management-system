@@ -20,7 +20,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ['email', 'username', 'is_staff', 'is_active', 'is_superuser']
         
     def update(self, instance, validated_data):
-        guest_profile = validated_data.pop('guest_profile')
+        guest_profile = validated_data.pop('guest_profile', {})
         for attr, value in guest_profile.items():
             setattr(instance.guest_profile, attr, value)
         instance.guest_profile.save()
