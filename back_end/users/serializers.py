@@ -7,7 +7,7 @@ from users.models import GuestProfile
 class GuestProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = GuestProfile
-        exclude = ['user']
+        exclude = ['id', 'user']
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -15,5 +15,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'email', 'username', 'is_staff', 'is_active', 'is_superuser', 'guest_profile')
+        fields = ('id', 'first_name', 'last_name', 'email', 'username', 'is_staff', 'is_active', 'is_superuser', 'guest_profile')
         read_only_fields = ['email', 'username', 'is_staff', 'is_active', 'is_superuser']
