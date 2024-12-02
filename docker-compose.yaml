@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  hotel:
+    build:
+      context: ./frontend/
+    command: node build
+    restart: on-failure
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "64m"
+    networks:
+      - cms
+
+networks:
+  cms:
+    driver: bridge
