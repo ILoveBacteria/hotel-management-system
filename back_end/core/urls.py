@@ -23,6 +23,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('users/', include('users.urls')),
+    path('rooms/', include('rooms.urls')),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('admin/', admin.site.urls),
