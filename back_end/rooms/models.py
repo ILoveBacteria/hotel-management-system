@@ -40,7 +40,7 @@ class RoomType(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.room_type
+        return self.name
 
 
 class RoomImage(models.Model):
