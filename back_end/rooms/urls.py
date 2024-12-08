@@ -5,7 +5,7 @@ from rooms.views import RoomViewSet
 
 
 router = DefaultRouter()
-router.register(r'', RoomViewSet, basename='user')
+router.register(r'', RoomViewSet)
 
 urlpatterns = [
 ]
