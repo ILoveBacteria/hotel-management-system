@@ -47,13 +47,12 @@ class RoomImage(models.Model):
     caption = models.CharField(max_length=255)
     image = models.ImageField(
         upload_to='room_images/', 
-        editable=False,
         validators=[
             FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
             file_size_validator,
         ],
     )
-    uploaded_at = models.DateTimeField(auto_now_add=True, editable=False)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
     is_primary = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
     room_type = models.ForeignKey('RoomType', on_delete=models.CASCADE)
