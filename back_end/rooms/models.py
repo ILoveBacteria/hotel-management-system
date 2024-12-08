@@ -24,7 +24,7 @@ class Room(models.Model):
     last_maintained = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    room_type = models.ForeignKey('RoomType', on_delete=models.CASCADE)
+    room_type = models.ForeignKey('RoomType', on_delete=models.CASCADE, related_name='rooms')
     
     def __str__(self):
         return self.room_number
@@ -55,7 +55,7 @@ class RoomImage(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_primary = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
-    room_type = models.ForeignKey('RoomType', on_delete=models.CASCADE)
+    room_type = models.ForeignKey('RoomType', on_delete=models.CASCADE, related_name='images')
     
     def __str__(self):
         return self.caption
