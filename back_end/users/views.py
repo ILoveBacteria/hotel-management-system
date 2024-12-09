@@ -8,7 +8,7 @@ from users.permissions import IsOwner
 from users.swagger import current_user_profile, user_profile
 
 from reservations.models import Reserve
-from reservations.serializers import ReserveSerializer
+from reservations.serializers import ReserveSerializer, ReserveCreateSerializer
 
 
 @extend_schema_view(**user_profile)
@@ -28,11 +28,15 @@ class CurrentUserProfileView(generics.RetrieveAPIView):
 
 
 class CurrentUserReservesView(generics.ListCreateAPIView):
-    serializer_class = ReserveSerializer
+    serializer_class = ReserveCreateSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Reserve.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.validated_data['user'] = self.request.user
+        return super().perform_create(serializer)
     
     
 class UserReservesView(generics.ListAPIView):
