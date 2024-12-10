@@ -3,7 +3,6 @@ from django.db import models
 
 class Bill(models.Model):
     amount = models.PositiveIntegerField()
-    due_date = models.DateTimeField()
     is_paid = models.BooleanField(default=False)
     payment_date = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
