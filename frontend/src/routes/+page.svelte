@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
+  import { goto } from "$app/navigation";
   import { PUBLIC_BASE_URL } from "$env/static/public";
-    import type { LoginDto } from "$lib/dtos/requests/login-request.dto";
+  import type { LoginDto } from "$lib/dtos/requests/login-request.dto";
   import type { RegisterRequestDto } from "$lib/dtos/requests/register-request.dto";
   import axios from "axios";
   import { fade, fly } from "svelte/transition";
@@ -22,9 +22,9 @@
         const loginRequest: LoginDto = { username, password };
         const result = await axios.post(
           PUBLIC_BASE_URL + "/auth/login/",
-          loginRequest,
+          loginRequest
         );
-        if (result.status === 200) goto("/dashboard")
+        if (result.status === 200) goto("/dashboard");
       } else {
         const registerRequest: RegisterRequestDto = {
           email,
@@ -35,9 +35,9 @@
         };
         const result = await axios.post(
           PUBLIC_BASE_URL + "/auth/register/",
-          registerRequest,
+          registerRequest
         );
-        if (result.status === 201) isLogin = true
+        if (result.status === 201) isLogin = true;
       }
     } catch (error) {
       console.error(error);
@@ -73,7 +73,6 @@
 
     <form class="mt-8 space-y-6" on:submit={handleSubmit}>
       <div class="rounded-md shadow-sm space-y-4">
-        
         <div>
           <label
             for="username"
@@ -92,7 +91,6 @@
         </div>
 
         {#if !isLogin}
-
           <div>
             <label
               for="email"
@@ -109,7 +107,6 @@
               placeholder="name@example.com"
             />
           </div>
-        
 
           <div>
             <label
@@ -163,7 +160,6 @@
           />
         </div>
       </div>
-
 
       <button
         type="submit"
