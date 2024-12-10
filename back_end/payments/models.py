@@ -7,4 +7,4 @@ class Bill(models.Model):
     payment_date = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    reserve = models.ForeignKey('reservations.Reserve', on_delete=models.CASCADE)
+    reserve = models.OneToOneField('reservations.Reserve', on_delete=models.CASCADE)
