@@ -7,6 +7,9 @@ services:
     volumes:
       - static_files_volume:/usr/src/app/staticfiles:rw
       - media_files_volume:/usr/src/app/media:rw
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
       test: curl --fail http://localhost:8000/ || exit 1
       interval: 5s
@@ -25,6 +28,23 @@ services:
     depends_on: 
       web:
         condition: service_healthy
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 
 volumes:
