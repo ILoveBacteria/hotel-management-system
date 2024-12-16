@@ -1,0 +1,3 @@
+CREATE DATABASE django;
+CREATE DATABASE django_test;
+CREATE DATABASE sonarqube;
