@@ -20,6 +20,10 @@ jobs:
           sparse-checkout: backend
       - name: Sonar scanning
         uses: sonarsource/sonarqube-scan-action@v4
+        with:
+          projectBaseDir: backend
+          args: >
+            -Dsonar.projectKey=hotel_backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
