@@ -1,13 +1,14 @@
-name: SonarQube
+name: SonarQube_Backend
 
 on:
   push:
     branches:
-      - backend
+      - master
+    paths:
+      - 'backend/**'
   pull_request:
     branches:
       - master
-
 
 jobs:
   analysis:
@@ -17,10 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
+          sparse-checkout: backend
       - name: Sonar scanning
         uses: sonarsource/sonarqube-scan-action@v4
-        working-directory: ./backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
