@@ -25,6 +25,12 @@ The Django web app is available on https://api-hotel.moeinarabi.ir
 
 ## Front-end
 
+[![Lines of Code](https://sonar.moeinarabi.ir/api/project_badges/measure?project=hotel_frontend&metric=ncloc&token=sqb_243eaf1d8fefb76328232dcaf7ffb7986164380a)](https://sonar.moeinarabi.ir/dashboard?id=hotel_frontend)
+[![Quality Gate Status](https://sonar.moeinarabi.ir/api/project_badges/measure?project=hotel_frontend&metric=alert_status&token=sqb_243eaf1d8fefb76328232dcaf7ffb7986164380a)](https://sonar.moeinarabi.ir/dashboard?id=hotel_frontend)
+[![Maintainability Rating](https://sonar.moeinarabi.ir/api/project_badges/measure?project=hotel_frontend&metric=software_quality_maintainability_rating&token=sqb_243eaf1d8fefb76328232dcaf7ffb7986164380a)](https://sonar.moeinarabi.ir/dashboard?id=hotel_frontend)
+[![Reliability Rating](https://sonar.moeinarabi.ir/api/project_badges/measure?project=hotel_frontend&metric=software_quality_reliability_rating&token=sqb_243eaf1d8fefb76328232dcaf7ffb7986164380a)](https://sonar.moeinarabi.ir/dashboard?id=hotel_frontend)
+[![Security Rating](https://sonar.moeinarabi.ir/api/project_badges/measure?project=hotel_frontend&metric=software_quality_security_rating&token=sqb_243eaf1d8fefb76328232dcaf7ffb7986164380a)](https://sonar.moeinarabi.ir/dashboard?id=hotel_frontend)
+
 ### Technologies
 
 1. Docker
