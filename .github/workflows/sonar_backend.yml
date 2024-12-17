@@ -1,4 +1,4 @@
-name: SonarQube_Backend
+name: SonarQube backend
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
       - backend
     paths-ignore:
       - 'frontend/**'
+      - 'README.md'
 
 jobs:
   analysis:
