@@ -24,7 +24,6 @@ jobs:
       - name: Sonar scanning
         uses: sonarsource/sonarqube-scan-action@v4
         with:
-          projectBaseDir: backend
           args: >
             -Dsonar.projectKey=hotel_backend
             -Dsonar.python.version=3.10
