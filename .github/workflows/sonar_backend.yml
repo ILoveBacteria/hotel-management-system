@@ -24,6 +24,7 @@ jobs:
           projectBaseDir: backend
           args: >
             -Dsonar.projectKey=hotel_backend
+            -Dsonar.python.version=3.10
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
