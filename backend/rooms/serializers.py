@@ -18,3 +18,4 @@ class RoomImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoomImage
         exclude = ['updated_at']
+        read_only_fields = ['room_type']

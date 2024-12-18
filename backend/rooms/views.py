@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins, generics
 from rest_framework.permissions import IsAdminUser
 
@@ -19,7 +20,11 @@ class RoomTypeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser|ReadOnly]
     
     
-class RoomImageViewSet(viewsets.ModelViewSet):
+class RoomImageViewSet(mixins.ListModelMixin, 
+                       mixins.RetrieveModelMixin,
+                       mixins.DestroyModelMixin,
+                       mixins.UpdateModelMixin,
+                       viewsets.GenericViewSet):
     serializer_class = RoomImageSerializer
     queryset = RoomImage.objects.all()
     permission_classes = [IsAdminUser|ReadOnly]
@@ -33,4 +38,10 @@ class RoomTypeImageViewSet(mixins.ListModelMixin,
     permission_classes = [IsAdminUser|ReadOnly]
     
     def get_queryset(self):
-        return RoomImage.objects.filter(room_type_id=self.kwargs['room_type'])
+        room_type = get_object_or_404(RoomType, id=self.kwargs['room_type'])
+        return RoomImage.objects.filter(room_type=room_type)
+    
+    def perform_create(self, serializer):
+        room_type = get_object_or_404(RoomType, id=self.kwargs['room_type'])
+        serializer.validated_data['room_type'] = room_type
+        return super().perform_create(serializer)
