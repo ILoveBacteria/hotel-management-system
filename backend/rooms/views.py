@@ -1,13 +1,10 @@
 from rest_framework import viewsets, mixins, generics
-from rest_framework.permissions import BasePermission, IsAdminUser, SAFE_METHODS
+from rest_framework.permissions import IsAdminUser
 
 from rooms.models import Room, RoomType, RoomImage
 from rooms.serializers import RoomSerializer, RoomTypeSerializer, RoomImageSerializer
 
-
-class ReadOnly(BasePermission):
-    def has_permission(self, request, view):
-        return request.method in SAFE_METHODS
+from rooms.permissions import ReadOnly
 
 
 class RoomViewSet(viewsets.ModelViewSet):
