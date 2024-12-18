@@ -28,9 +28,12 @@ class RoomImageViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser|ReadOnly]
     
     
-class RoomTypeImageViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class RoomTypeImageViewSet(mixins.ListModelMixin, 
+                           mixins.RetrieveModelMixin,
+                           mixins.CreateModelMixin, 
+                           viewsets.GenericViewSet):
     serializer_class = RoomImageSerializer
+    permission_classes = [IsAdminUser|ReadOnly]
     
     def get_queryset(self):
         return RoomImage.objects.filter(room_type_id=self.kwargs['room_type'])
-    
