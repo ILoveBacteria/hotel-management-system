@@ -32,8 +32,6 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=list)
 
 CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', cast=list)
 
-CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', cast=list)
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -178,3 +176,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# Django cors headers
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', cast=list)
