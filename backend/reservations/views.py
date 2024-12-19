@@ -1,14 +1,10 @@
 from rest_framework import generics, views
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 
 from reservations.models import Reserve
 from reservations.serializers import ReserveSerializer
-
-
-class IsOwner(IsAuthenticated):
-    def has_object_permission(self, request, view, obj):
-        return obj == request.user
+from reservations.permissions import IsOwner
 
 
 class ReserveListView(generics.ListAPIView):
