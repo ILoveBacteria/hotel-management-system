@@ -159,7 +159,7 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Bacteria Hotel API',
     'DESCRIPTION': 'Hotel management system',
-    'VERSION': '0.4.2-beta',
+    'VERSION': '0.4.3-beta',
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
