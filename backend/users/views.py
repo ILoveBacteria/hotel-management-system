@@ -6,20 +6,20 @@ from drf_spectacular.utils import extend_schema_view
 
 from users.serializers import UserProfileSerializer
 from users.permissions import IsOwner
-from users.swagger import current_user_profile, user_profile
+from users import swagger
 
 from reservations.models import Reserve
 from reservations.serializers import ReserveSerializer
 
 
-@extend_schema_view(**user_profile)
+@extend_schema_view(**swagger.user_profile)
 class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     queryset = get_user_model().objects.all()
     permission_classes = [IsAdminUser|IsOwner]
     
 
-@extend_schema_view(**current_user_profile)
+@extend_schema_view(**swagger.current_user_profile)
 class CurrentUserProfileView(generics.RetrieveAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
@@ -28,6 +28,7 @@ class CurrentUserProfileView(generics.RetrieveAPIView):
         return self.request.user
 
 
+@extend_schema_view(**swagger.current_user_reserves_view)
 class CurrentUserReservesView(generics.ListCreateAPIView):
     serializer_class = ReserveSerializer
     permission_classes = [IsAuthenticated]
@@ -39,7 +40,8 @@ class CurrentUserReservesView(generics.ListCreateAPIView):
         serializer.validated_data['user'] = self.request.user
         return super().perform_create(serializer)
     
-    
+
+@extend_schema_view(**swagger.user_reserves_view)
 class UserReservesView(generics.ListAPIView):
     serializer_class = ReserveSerializer
     permission_classes = [IsAdminUser]
