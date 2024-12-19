@@ -3,11 +3,11 @@ from django.contrib.auth import get_user_model
 
 
 class Reserve(models.Model):
-    REGISTERED = 'RE'
-    CANCELED = 'CA'
-    PAID = 'PA'
-    CHECK_IN = 'CI'
-    CHECK_OUT = 'CO'
+    REGISTERED = 'registered'
+    CANCELED = 'canceled'
+    PAID = 'paid'
+    CHECK_IN = 'check-in'
+    CHECK_OUT = 'check-out'
     STATUS_CHOICES = [
         (REGISTERED, 'Registered'),
         (CANCELED, 'Canceled'),
@@ -21,7 +21,7 @@ class Reserve(models.Model):
     check_in = models.DateField()
     check_out = models.DateField()
     status = models.CharField(
-        max_length=2,
+        max_length=20,
         choices=STATUS_CHOICES,
         default=REGISTERED,
     )
