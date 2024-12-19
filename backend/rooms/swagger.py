@@ -91,3 +91,10 @@ room_type_inventory_viewset = {
         description="Add a new room to the inventory for a specific room type. Permission: Only admin users can add inventory."
     )
 }
+
+current_user_reserve_view = {
+    'post': extend_schema(
+        summary="Create a reservation for the current user",
+        description="Create a new reservation for the currently authenticated user. Permission: Only authenticated users can create reservations."
+    )
+}

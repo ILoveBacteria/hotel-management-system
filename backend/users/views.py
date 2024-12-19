@@ -29,16 +29,12 @@ class CurrentUserProfileView(generics.RetrieveAPIView):
 
 
 @extend_schema_view(**swagger.current_user_reserves_view)
-class CurrentUserReservesView(generics.ListCreateAPIView):
+class CurrentUserReservesView(generics.ListAPIView):
     serializer_class = ReserveSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Reserve.objects.filter(user=self.request.user)
-    
-    def perform_create(self, serializer):
-        serializer.validated_data['user'] = self.request.user
-        return super().perform_create(serializer)
     
 
 @extend_schema_view(**swagger.user_reserves_view)
