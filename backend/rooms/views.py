@@ -8,7 +8,11 @@ from rooms.serializers import RoomSerializer, RoomTypeSerializer, RoomImageSeria
 from rooms.permissions import ReadOnly
 
 
-class RoomViewSet(viewsets.ModelViewSet):
+class RoomViewSet(mixins.ListModelMixin, 
+                  mixins.RetrieveModelMixin,
+                  mixins.DestroyModelMixin,
+                  mixins.UpdateModelMixin,
+                  viewsets.GenericViewSet):
     serializer_class = RoomSerializer
     queryset = Room.objects.all()
     permission_classes = [IsAdminUser|ReadOnly]
@@ -30,18 +34,28 @@ class RoomImageViewSet(mixins.ListModelMixin,
     permission_classes = [IsAdminUser|ReadOnly]
     
     
-class RoomTypeImageViewSet(mixins.ListModelMixin, 
+class BaseRoomTypeRelation(mixins.ListModelMixin, 
                            mixins.RetrieveModelMixin,
                            mixins.CreateModelMixin, 
                            viewsets.GenericViewSet):
-    serializer_class = RoomImageSerializer
     permission_classes = [IsAdminUser|ReadOnly]
+    relation_class = None
     
     def get_queryset(self):
         room_type = get_object_or_404(RoomType, id=self.kwargs['room_type'])
-        return RoomImage.objects.filter(room_type=room_type)
+        return self.relation_class.objects.filter(room_type=room_type)
     
     def perform_create(self, serializer):
         room_type = get_object_or_404(RoomType, id=self.kwargs['room_type'])
         serializer.validated_data['room_type'] = room_type
         return super().perform_create(serializer)
+    
+    
+class RoomTypeImageViewSet(BaseRoomTypeRelation):
+    serializer_class = RoomImageSerializer
+    relation_class = RoomImage
+    
+
+class RoomTypeInventoryViewSet(BaseRoomTypeRelation):
+    serializer_class = RoomSerializer
+    relation_class = Room
