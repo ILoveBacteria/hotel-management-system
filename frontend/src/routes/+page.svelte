@@ -4,6 +4,7 @@
   import type { LoginDto } from "$lib/dtos/requests/login-request.dto";
   import type { RegisterRequestDto } from "$lib/dtos/requests/register-request.dto";
   import axios from "axios";
+  import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
 
   let isLogin = true;
@@ -13,6 +14,21 @@
   let firstname = "";
   let lastname = "";
 
+
+  onMount(async () => {
+
+    const result = await axios.get(
+      PUBLIC_BASE_URL + "/users/profile/",
+      {
+        withCredentials : true
+      }
+    )
+
+    if(result.status == 200) goto("/dashboard")
+    
+
+  });
+
   // @ts-ignore
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,11 +36,21 @@
     try {
       if (isLogin) {
         const loginRequest: LoginDto = { username, password };
-        const result = await axios.post(
-          PUBLIC_BASE_URL + "/auth/login/",
-          loginRequest
-        );
-        if (result.status === 200) goto("/dashboard");
+        const request = await fetch(PUBLIC_BASE_URL + "/auth/login/",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginRequest),
+            credentials: "include"
+        });
+
+        if (request.ok) {
+            // You might want to handle the response before redirecting
+            const response = await request.json();
+            goto("/dashboard");
+        }
+
       } else {
         const registerRequest: RegisterRequestDto = {
           email,

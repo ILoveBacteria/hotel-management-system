@@ -1,33 +1,33 @@
 <script lang="ts">
     export let currentRoom: string;
-    export let loyaltyPoints: number;
-    export let totalStays: number;
+    export let totalReservations: number;
     export let nextBooking: string;
+    export let activeBooking: string;
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
         <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
-            Current Stay
+            Current Room
         </h3>
         <p class="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">
-            Room {currentRoom}
+            {currentRoom}
         </p>
     </div>
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
         <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
-            Loyalty Points
+            Total Reservations
         </h3>
         <p class="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">
-            {loyaltyPoints.toLocaleString()}
+            {totalReservations}
         </p>
     </div>
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
         <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
-            Total Stays
+            Active Booking
         </h3>
         <p class="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">
-            {totalStays}
+            {activeBooking}
         </p>
     </div>
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
