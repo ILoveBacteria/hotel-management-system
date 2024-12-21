@@ -1,40 +1,56 @@
-// src/lib/types.ts
-export interface Booking {
-    id: string;
-    roomNumber: string;
-    checkIn: string;
-    checkOut: string;
-    status: 'Confirmed' | 'Pending' | 'Checked In';
+export interface GuestProfile {
+  phone_number: string;
+  avatar: string | null;
+  national_id: string;
+  address: string;
 }
 
-export interface HotelEvent {
-    name: string;
-    date: string;
-    time: string;
-    location: string;
-    status: string;
+export interface UserProfile {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  is_staff: boolean;
+  is_active: boolean;
+  is_superuser: boolean;
+  guest_profile: GuestProfile;
 }
 
-export interface Service {
-    type: 'cleaning' | 'roomService' | 'maintenance';
-    date: string;
-    time: string;
-    roomNumber: string;
-    status: string;
+export interface Reserve {
+  id: number;
+  price: number;
+  check_in: string;
+  check_out: string;
+  status: "registered" | "canceled" | "paid" | "check-in" | "check-out";
+  created_at: string;
+  updated_at: string;
+  user: number;
+  room: number;
 }
-
 
 export interface Room {
-    id: string;
-    number: string;
-    type: string;
-    capacity: number;
-    bedType: string;
-    pricePerNight: number;
-    sqft: number;
-    amenities: string[];
-    description: string;
-    imageUrl?: string;
-    images?: string[];
-    status: 'available' | 'occupied' | 'maintenance';
+  room_number: number;
+  is_active: boolean;
+  status: "available" | "occupied" | "maintenance";
+  last_maintained: string | null;
+  room_type: number;
+}
+
+export interface RoomType {
+  id: number;
+  name: string;
+  price: number;
+  double_beds: number;
+  single_beds: number;
+  description: string;
+}
+
+export interface RoomImage {
+  id: number;
+  caption: string;
+  image: string;
+  uploaded_at: string;
+  is_primary: boolean;
+  room_type: number;
 }
