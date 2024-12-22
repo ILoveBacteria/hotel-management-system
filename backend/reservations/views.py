@@ -7,6 +7,7 @@ from reservations import swagger
 from reservations.models import Reserve
 from reservations.serializers import ReserveSerializer
 from reservations.permissions import IsOwner
+from rooms.permissions import ReadOnly
 
 
 @extend_schema_view(**swagger.reserve_list_view)
@@ -20,7 +21,7 @@ class ReserveListView(generics.ListAPIView):
 class ReserveDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reserve.objects.all()
     serializer_class = ReserveSerializer
-    permission_classes = [IsAdminUser|IsOwner]
+    permission_classes = [IsAdminUser|(ReadOnly&IsOwner)]
     
 
 @extend_schema_view(**swagger.cancel_reserve_view)

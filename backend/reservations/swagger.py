@@ -15,15 +15,15 @@ reserve_detail_view = {
     ),
     'put': extend_schema(
         summary="Update a reservation",
-        description="Update a specific reservation by ID. Permission: Admin users can update any reservation, while owners can update their own reservations."
+        description="Update a specific reservation by ID. Permission: Only admin users can update any reservation."
     ),
     'patch': extend_schema(
         summary="Partially update a reservation",
-        description="Partially update a specific reservation by ID. Permission: Admin users can update any reservation, while owners can update their own reservations."
+        description="Partially update a specific reservation by ID. Permission: Only admin users can update any reservation."
     ),
     'delete': extend_schema(
         summary="Delete a reservation",
-        description="Delete a specific reservation by ID. Permission: Admin users can delete any reservation, while owners can delete their own reservations."
+        description="Delete a specific reservation by ID. Permission: Only admin users can delete any reservation."
     )
 }
 
