@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models import Q, CheckConstraint, F
 
 
 class Reserve(models.Model):
@@ -17,7 +18,6 @@ class Reserve(models.Model):
     ]
     
     price = models.PositiveIntegerField()
-    # TODO: Constraint for check_in < check_out
     check_in = models.DateField()
     check_out = models.DateField()
     status = models.CharField(
@@ -29,6 +29,11 @@ class Reserve(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='reserves')
     room = models.ForeignKey('rooms.Room', on_delete=models.PROTECT, related_name='reserves')
+    
+    class Meta:
+        constraints = [
+            CheckConstraint(condition=Q(check_in__lt=F('check_out')), name='check_in_before_check_out'),
+        ]
     
     def __str__(self):
         return f'{self.id} - {self.status}'
