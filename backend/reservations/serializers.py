@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
+from reservations import queries
 from reservations.models import Reserve
 from rooms.models import RoomType
 
@@ -28,23 +29,24 @@ class ReserveCreateSerializer(serializers.ModelSerializer):
         fields = ['check_in', 'check_out']
         
     def validate(self, data):
-        # TODO: Implement a better way to select a random room and check constraints.
-        # TODO: Is this room available on that date?
+        if data['check_in'] >= data['check_out']:
+            raise serializers.ValidationError('Check-in must be before check-out.')
         view = self.context.get('view')
         room_type = get_object_or_404(RoomType, id=view.kwargs['room_type'])
-        if room_type.rooms.count() == 0:
-            raise serializers.ValidationError('There are no rooms available for this room type.')
+        data['room'] = self.pick_random_available_room(room_type, data)
         data['room_type'] = room_type
         return data
         
     def create(self, validated_data):
         request = self.context.get('request')
         room_type = validated_data.pop('room_type')
-        random_room = self.pick_random_available_room(room_type)
-        validated_data['room'] = random_room
         validated_data['user'] = request.user
         validated_data['price'] = room_type.price
         return super().create(validated_data)
     
-    def pick_random_available_room(self, room_type):
-        return room_type.rooms.first()
+    def pick_random_available_room(self, room_type, data):
+        rooms = queries.get_candidate_rooms(room_type)
+        for room in rooms:
+            if not queries.is_reserve_overlapped(room, data['check_in'], data['check_out']):
+                return room
+        raise serializers.ValidationError('There are no rooms available for this room type.')
