@@ -8,7 +8,7 @@ from rooms.models import Room, RoomType, RoomImage
 from rooms.serializers import RoomSerializer, RoomTypeSerializer, RoomImageSerializer
 from rooms.permissions import ReadOnly
 from reservations.models import Reserve
-from reservations.serializers import ReserveSerializer
+from reservations.serializers import ReserveCreateSerializer
 
 
 @extend_schema_view(**swagger.room_viewset)
@@ -71,14 +71,5 @@ class RoomTypeInventoryViewSet(BaseRoomTypeRelation):
 
 @extend_schema_view(**swagger.current_user_reserve_view)
 class CurrentUserReserveView(generics.CreateAPIView):
-    serializer_class = ReserveSerializer
+    serializer_class = ReserveCreateSerializer
     permission_classes = [IsAuthenticated]
-    
-    def perform_create(self, serializer):
-        room_type = get_object_or_404(RoomType, id=self.kwargs['room_type'])
-        # TODO: Implement a better way to select a random room and check constraints.
-        # TODO: Is this room available on that date?
-        random_room = room_type.rooms.first()
-        serializer.validated_data['user'] = self.request.user
-        serializer.validated_data['room'] = random_room
-        return super().perform_create(serializer)
