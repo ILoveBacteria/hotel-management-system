@@ -15,8 +15,8 @@ class CancelledReserveSerializer(serializers.ModelSerializer):
 
 
 class ReserveSerializer(serializers.ModelSerializer):
-    user = serializers.HyperlinkedIdentityField(view_name='user-profile', read_only=True)
-    room = serializers.HyperlinkedIdentityField(view_name='inventories-detail', read_only=True)
+    user = serializers.HyperlinkedRelatedField(view_name='user-profile', read_only=True)
+    room = serializers.HyperlinkedRelatedField(view_name='inventories-detail', read_only=True)
     
     class Meta:
         model = Reserve
