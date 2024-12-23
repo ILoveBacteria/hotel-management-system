@@ -41,6 +41,6 @@ class Reserve(models.Model):
 
 class CancelledReserve(models.Model):
     reserve = models.OneToOneField(Reserve, on_delete=models.CASCADE, related_name='cancelled_reserve')
-    amount = models.PositiveIntegerField()
+    penalty = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
