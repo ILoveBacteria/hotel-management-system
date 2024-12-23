@@ -14,5 +14,28 @@
             <li><a href="{% url 'logout' %}">Logout</a></li>
             <li><a href="{% url 'register' %}">Register</a></li>
         </ul>
+        <h2>Reservations</h2>
+        <ul>
+            <li><a href="{% url 'reserves-list' %}">Reserve List</a></li>
+            <li><a href="{% url 'reserves-detail' pk=1 %}">Reserve Detail</a></li>
+        </ul>
+        <h2>Rooms</h2>
+        <ul>
+            <li><a href="{% url 'inventories-list' %}">Room List</a></li>
+            <li><a href="{% url 'inventories-detail' pk=1 %}">Room Detail</a></li>
+            <li><a href="{% url 'images-list' %}">Room Image List</a></li>
+            <li><a href="{% url 'types-list' %}">Room Type List</a></li>
+            <li><a href="{% url 'types-detail' pk=1 %}">Room Type Detail</a></li>
+            <li><a href="{% url 'room-type-images-list' room_type=1 %}">Room Type Images</a></li>
+            <li><a href="{% url 'room-type-inventories-list' room_type=1 %}">Room Type Inventories</a></li>
+            <li><a href="{% url 'current-user-reserve' room_type=1 %}">Current User Reserve</a></li>
+        </ul>
+        <h2>Users</h2>
+        <ul>
+            <li><a href="{% url 'user-profile' pk=1 %}">User Profile</a></li>
+            <li><a href="{% url 'current-user-profile' %}">Current User Profile</a></li>
+            <li><a href="{% url 'current-user-reserves' %}">Current User Reserves</a></li>
+            <li><a href="{% url 'user-reserves' user_id=1 %}">User Reserves</a></li>
+        </ul>
     </body>
 </html>

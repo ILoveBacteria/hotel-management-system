@@ -9,9 +9,9 @@ def file_size_validator(value):
     
 
 class Room(models.Model):
-    AVAILABLE = 'AV'
-    OCCUPIED = 'OC'
-    MAINTENANCE = 'MT'
+    AVAILABLE = 'available'
+    OCCUPIED = 'occupied'
+    MAINTENANCE = 'maintenance'
     STATUS_CHOICES = [
         (AVAILABLE, 'Available'),
         (OCCUPIED, 'Occupied'),
@@ -20,7 +20,7 @@ class Room(models.Model):
     
     room_number = models.IntegerField(primary_key=True)
     is_active = models.BooleanField()
-    status = models.CharField(choices=STATUS_CHOICES, max_length=2)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=20)
     last_maintained = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -23,3 +23,21 @@ user_profile = {
         description=description,
     )
 }
+
+current_user_reserves_view = {
+    'get': extend_schema(
+        summary="List current user's reservations",
+        description="Retrieve a list of reservations for the currently authenticated user. Permission: Only authenticated users can access their own reservations."
+    ),
+    'post': extend_schema(
+        summary="Create a reservation for the current user",
+        description="Create a new reservation for the currently authenticated user. Permission: Only authenticated users can create reservations."
+    )
+}
+
+user_reserves_view = {
+    'get': extend_schema(
+        summary="List reservations for a specific user",
+        description="Retrieve a list of reservations for a specific user by user ID. Permission: Only admin users can access this endpoint."
+    )
+}

@@ -144,12 +144,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
 }
 
 # Spectacular settings
@@ -157,7 +159,7 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Bacteria Hotel API',
     'DESCRIPTION': 'Hotel management system',
-    'VERSION': '0.4.2-beta',
+    'VERSION': '0.4.5-beta',
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
@@ -166,6 +168,10 @@ SPECTACULAR_SETTINGS = {
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SAMESITE = None
+
+CSRF_COOKIE_SAMESITE = None
 
 SECURE_BROWSER_XSS_FILTER = True
 

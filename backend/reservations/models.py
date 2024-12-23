@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models import Q, CheckConstraint, F
 
 
 class Reserve(models.Model):
-    REGISTERED = 'RE'
-    CANCELED = 'CA'
-    PAID = 'PA'
-    CHECK_IN = 'CI'
-    CHECK_OUT = 'CO'
+    REGISTERED = 'registered'
+    CANCELED = 'canceled'
+    PAID = 'paid'
+    CHECK_IN = 'check-in'
+    CHECK_OUT = 'check-out'
     STATUS_CHOICES = [
         (REGISTERED, 'Registered'),
         (CANCELED, 'Canceled'),
@@ -17,18 +18,22 @@ class Reserve(models.Model):
     ]
     
     price = models.PositiveIntegerField()
-    # TODO: Constraint for check_in < check_out
     check_in = models.DateField()
     check_out = models.DateField()
     status = models.CharField(
-        max_length=2,
+        max_length=20,
         choices=STATUS_CHOICES,
         default=REGISTERED,
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='reserves')
-    room = models.ForeignKey('rooms.Room', on_delete=models.SET_NULL, related_name='reserves', null=True)
+    room = models.ForeignKey('rooms.Room', on_delete=models.PROTECT, related_name='reserves')
+    
+    class Meta:
+        constraints = [
+            CheckConstraint(condition=Q(check_in__lt=F('check_out')), name='check_in_before_check_out'),
+        ]
     
     def __str__(self):
         return f'{self.id} - {self.status}'
@@ -36,6 +41,6 @@ class Reserve(models.Model):
 
 class CancelledReserve(models.Model):
     reserve = models.OneToOneField(Reserve, on_delete=models.CASCADE, related_name='cancelled_reserve')
-    amount = models.PositiveIntegerField()
+    penalty = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

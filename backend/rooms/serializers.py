@@ -3,6 +3,8 @@ from rooms.models import Room, RoomType, RoomImage
 
 
 class RoomSerializer(serializers.ModelSerializer):
+    room_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='types-detail')
+
     class Meta:
         model = Room
         exclude = ['created_at', 'updated_at']
@@ -16,6 +18,8 @@ class RoomTypeSerializer(serializers.ModelSerializer):
         
 
 class RoomImageSerializer(serializers.ModelSerializer):
+    room_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='types-detail')
+    
     class Meta:
         model = RoomImage
         exclude = ['updated_at']
