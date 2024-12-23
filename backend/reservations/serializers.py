@@ -10,8 +10,8 @@ from rooms.models import RoomType
 class CancelledReserveSerializer(serializers.ModelSerializer):
     class Meta:
         model = CancelledReserve
-        fields = '__all__'
-        read_only_fields = ['reserve']
+        exclude = ['reserve']
+        read_only_fields = ['penalty']
 
 
 class ReserveSerializer(serializers.ModelSerializer):

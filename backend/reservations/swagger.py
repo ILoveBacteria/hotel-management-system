@@ -28,6 +28,10 @@ reserve_detail_view = {
 }
 
 cancel_reserve_view = {
+    'get': extend_schema(
+        summary="Retrieve a cancellation",
+        description="Retrieve a specific cancel. Permission: Admin users can access any cancellation, while owners can access their own cancellation."
+    ),
     'post': extend_schema(
         summary="Cancel a reservation",
         description="Cancel a specific reservation. Permission: Admin users can cancel any reservation, while owners can cancel their own reservations."

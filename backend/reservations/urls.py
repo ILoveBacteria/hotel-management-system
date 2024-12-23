@@ -6,5 +6,5 @@ from reservations.views import ReserveListView, ReserveDetailView, CancelReserve
 urlpatterns = [
     path('reserves/', ReserveListView.as_view(), name='reserves-list'),
     path('reserves/<int:pk>/', ReserveDetailView.as_view(), name='reserves-detail'),
-    path('reserves/<int:pk>/cancel/', CancelReserveView.as_view(), name='reserves-cancel'),
+    path('reserves/<int:reserve__id>/cancel/', CancelReserveView.as_view(), name='reserves-cancel'),
 ]
