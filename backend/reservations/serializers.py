@@ -3,8 +3,15 @@ from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
 
 from reservations import queries
-from reservations.models import Reserve
+from reservations.models import Reserve, CancelledReserve
 from rooms.models import RoomType
+
+
+class CancelledReserveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CancelledReserve
+        fields = '__all__'
+        read_only_fields = ['reserve']
 
 
 class ReserveSerializer(serializers.ModelSerializer):
