@@ -11,7 +11,7 @@ class Bill(models.Model):
     payment_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    reservation = models.OneToOneField(Reserve, on_delete=models.CASCADE)
+    reserve = models.OneToOneField(Reserve, on_delete=models.CASCADE)
     
     class Meta:
         constraints = [
