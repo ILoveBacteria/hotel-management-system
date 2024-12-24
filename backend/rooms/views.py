@@ -80,5 +80,5 @@ class CurrentUserReserveView(generics.CreateAPIView):
     @transaction.atomic
     def perform_create(self, serializer):
         reserve = serializer.save()
-        due_date = min(reserve.check_in, reserve.created_at + timedelta(minutes=10))
+        due_date = reserve.created_at + timedelta(minutes=10)
         Bill.objects.create(amount=reserve.price, due_date=due_date, reserve=reserve)
