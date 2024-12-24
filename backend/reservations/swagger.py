@@ -37,3 +37,10 @@ cancel_reserve_view = {
         description="Cancel a specific reservation. Permission: Admin users can cancel any reservation, while owners can cancel their own reservations."
     )
 }
+
+reserve_bill_view = {
+    'get': extend_schema(
+        summary="Retrieve a bill",
+        description="Retrieve a specific bill. Permission: Admin users can access any bill, while owners can access their own bills."
+    )
+}

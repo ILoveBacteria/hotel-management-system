@@ -10,6 +10,9 @@ from reservations.models import Reserve, CancelledReserve
 from reservations.serializers import ReserveSerializer, CancelledReserveSerializer
 from reservations.permissions import IsReserveOwner, IsCancelledReserveOwner
 from rooms.permissions import ReadOnly
+from payments.models import Bill
+from payments.serializers import BillSerializer
+from payments.permissions import IsBillOwner
 
 
 @extend_schema_view(**swagger.reserve_list_view)
@@ -40,3 +43,11 @@ class CancelReserveView(generics.RetrieveAPIView):
         reserve.status = Reserve.CANCELED
         reserve.save()
         return Response(CancelledReserveSerializer(cancel).data, status=status.HTTP_201_CREATED)
+    
+
+@extend_schema_view(**swagger.reserve_bill_view)   
+class ReserveBillView(generics.RetrieveAPIView):
+    permission_classes = [IsAdminUser|IsBillOwner]
+    queryset = Bill.objects.all()
+    serializer_class = BillSerializer
+    lookup_field = 'reserve__id'
