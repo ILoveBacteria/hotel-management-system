@@ -41,3 +41,10 @@ user_reserves_view = {
         description="Retrieve a list of reservations for a specific user by user ID. Permission: Only admin users can access this endpoint."
     )
 }
+
+current_user_bills_view = {
+    'get': extend_schema(
+        summary="List current user's bills",
+        description="Retrieve a list of bills for the currently authenticated user. Permission: Only authenticated users can access their own bills."
+    )
+}

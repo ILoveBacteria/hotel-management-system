@@ -7,9 +7,10 @@ from drf_spectacular.utils import extend_schema_view
 from users.serializers import UserProfileSerializer
 from users.permissions import IsOwner
 from users import swagger
-
 from reservations.models import Reserve
 from reservations.serializers import ReserveSerializer
+from payments.models import Bill
+from payments.serializers import BillSerializer
 
 
 @extend_schema_view(**swagger.user_profile)
@@ -45,3 +46,12 @@ class UserReservesView(generics.ListAPIView):
     def get_queryset(self):
         user = get_object_or_404(get_user_model(), pk=self.kwargs['user_id'])
         return Reserve.objects.filter(user=user)
+
+
+@extend_schema_view(**swagger.current_user_bills_view)
+class CurrentUserBillsView(generics.ListAPIView):
+    serializer_class = BillSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        return Bill.objects.filter(reserve__user=self.request.user)
