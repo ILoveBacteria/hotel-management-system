@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 from rest_framework import viewsets, mixins, generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from drf_spectacular.utils import extend_schema_view
@@ -7,8 +10,8 @@ from rooms import swagger
 from rooms.models import Room, RoomType, RoomImage
 from rooms.serializers import RoomSerializer, RoomTypeSerializer, RoomImageSerializer
 from rooms.permissions import ReadOnly
-from reservations.models import Reserve
 from reservations.serializers import ReserveCreateSerializer
+from payments.models import Bill
 
 
 @extend_schema_view(**swagger.room_viewset)
@@ -73,3 +76,9 @@ class RoomTypeInventoryViewSet(BaseRoomTypeRelation):
 class CurrentUserReserveView(generics.CreateAPIView):
     serializer_class = ReserveCreateSerializer
     permission_classes = [IsAuthenticated]
+    
+    @transaction.atomic
+    def perform_create(self, serializer):
+        reserve = serializer.save()
+        due_date = min(reserve.check_in, reserve.created_at + timedelta(minutes=10))
+        Bill.objects.create(amount=reserve.price, due_date=due_date, reserve=reserve)
