@@ -69,7 +69,7 @@
     }
 
     // Reload data when navigating back to dashboard
-    $: if ($page.url.pathname === '/dashboard') {
+    $: if ($page.url.pathname === '/user/dashboard') {
         loadDashboardData();
     }
 
