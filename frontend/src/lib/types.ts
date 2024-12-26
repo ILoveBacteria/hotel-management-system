@@ -1,6 +1,6 @@
 export interface GuestProfile {
   phone_number: string;
-  avatar: string | null;
+  avatar: string;
   national_id: string;
   address: string;
 }
@@ -53,4 +53,15 @@ export interface RoomImage {
   uploaded_at: string;
   is_primary: boolean;
   room_type: number;
+}
+
+export interface Bill {
+  id: number;
+  reserve: string;
+  amount: number;
+  status: "waiting" | "paid" | "overdue";
+  due_date: string;
+  payment_date: string | null;
+  created_at: string;
+  updated_at: string;
 }

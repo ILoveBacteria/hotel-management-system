@@ -23,28 +23,28 @@
 
         <nav class="flex-1 p-4 space-y-2">
             <a
-                href="/dashboard"
+                href="/user/dashboard"
                 class="flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             >
                 <Home class="w-5 h-5 mr-3" />
                 Dashboard
             </a>
             <a
-                href="/dashboard/booking"
+                href="/user/dashboard/reservations"
                 class="flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             >
                 <Calendar class="w-5 h-5 mr-3" />
-                My Bookings
+                My Reservations
             </a>
             <a
-                href="/payments"
+                href="/user/dashboard/payments"
                 class="flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             >
                 <CreditCard class="w-5 h-5 mr-3" />
                 Payments
             </a>
             <a
-                href="/profile"
+                href="/user/dashboard/profile"
                 class="flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
             >
                 <User class="w-5 h-5 mr-3" />
