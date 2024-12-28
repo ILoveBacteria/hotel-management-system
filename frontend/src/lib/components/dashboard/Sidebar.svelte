@@ -1,15 +1,19 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+  import { PUBLIC_BASE_URL } from "$env/static/public";
     import { Home, Calendar, CreditCard, User, LogOut } from "lucide-svelte";
 
     export let username: string;
     async function logout() {
-        // Add your logout logic here
         try {
-            // Example: await auth.logout();
-            window.location.href = "/login";
-        } catch (error) {
-            console.error("Logout failed:", error);
-        }
+          await fetch(`${PUBLIC_BASE_URL}/auth/logout/`, {
+              method: "POST",
+              credentials: "include"
+          });
+          goto("/user/login");
+      } catch (error) {
+          console.error("Logout failed:", error);
+      }
     }
 </script>
 
