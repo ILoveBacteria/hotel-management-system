@@ -15,3 +15,7 @@ media/
 
 # Database Files
 db.sqlite3
+
+# Coverage report
+coverage.xml
+.coverage
