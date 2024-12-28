@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
+from rest_framework.exceptions import PermissionDenied
 from drf_spectacular.utils import extend_schema_view
 
 from reservations import swagger
@@ -38,7 +39,8 @@ class CancelReserveView(generics.RetrieveAPIView):
     
     def post(self, request, reserve__id):
         reserve = get_object_or_404(Reserve, id=reserve__id)
-        (IsAdminUser|IsReserveOwner)().has_object_permission(request, self, reserve)
+        if not (IsAdminUser|IsReserveOwner)().has_object_permission(request, self, reserve):
+            raise PermissionDenied()
         cancel = CancelledReserve.objects.create(reserve=reserve, penalty=reserve.price//2)
         reserve.status = Reserve.CANCELED
         reserve.save()
