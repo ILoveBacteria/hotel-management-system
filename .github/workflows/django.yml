@@ -7,8 +7,11 @@ on:
       - backend
     paths-ignore:
       - 'frontend/**'
-      - '.github/**'
       - 'README.md'
+
+defaults:
+  run:
+    working-directory: ./backend
 
 jobs:
   test:
