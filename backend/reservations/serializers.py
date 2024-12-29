@@ -37,8 +37,7 @@ class ReserveCreateSerializer(serializers.ModelSerializer):
         
     def validate(self, data):
         if data['check_in'] >= data['check_out']:
-            # TODO: Add the field name to the error message.
-            raise serializers.ValidationError('Check-in must be before check-out.')
+            raise serializers.ValidationError({'check_in': 'Check-in must be before check-out.'})
         view = self.context.get('view')
         room_type = get_object_or_404(RoomType, id=view.kwargs['room_type'])
         data['room'] = self.pick_random_available_room(room_type, data)
