@@ -1,0 +1,10 @@
+services:
+  front:
+    build: .
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "64m"
+    ports:
+      - "127.0.0.1:2004:3000"
