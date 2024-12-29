@@ -6,6 +6,7 @@
     import type { UserProfile } from "$lib/types";
     import DashboardLayout from "$lib/components/layout/DashboardLayout.svelte";
     import { User, Phone, Mail, MapPin, Camera, CheckCircle } from "lucide-svelte";
+  import { CookieParser } from "$lib/helpers/cookie-parser";
 
     let userProfile: UserProfile | null = null;
     let isEditing = false;
@@ -43,6 +44,9 @@
             }
 
             userProfile = await response.json();
+
+            console.log(userProfile);
+            
             // Initialize form data with current profile
             formData = {
                 first_name: userProfile?.first_name || "",
@@ -139,6 +143,10 @@
 
     onMount(() => {
         loadProfile();
+        const cookies = CookieParser.getCookies();
+        console.log(document.cookie);
+        
+        console.log(cookies)
     });
 </script>
 

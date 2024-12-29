@@ -1,7 +1,7 @@
 <!-- src/routes/admin/dashboard/+page.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { UserProfile } from "$lib/types";
+  import type { UserProfile, Room, Reserve, RoomType } from "$lib/types";
   import { goto } from "$app/navigation";
   import { PUBLIC_BASE_URL } from "$env/static/public";
   import {
@@ -10,6 +10,7 @@
     CalendarDays,
     BedDouble,
     Loader2,
+    AlertTriangle,
   } from "lucide-svelte";
   import AdminLayout from "$lib/components/admin/AdminLayout.svelte";
 
@@ -17,13 +18,30 @@
   let isLoading = true;
   let error: string | null = null;
 
-  // Stats
-  let stats = {
-    totalRooms: 0,
-    availableRooms: 0,
-    totalReservations: 0,
-    totalUsers: 0,
+  // Stats data
+  let rooms: Room[] = [];
+  let reservations: Reserve[] = [];
+  let users: UserProfile[] = [];
+  let roomTypes: RoomType[] = [];
+
+  // Computed stats
+  $: stats = {
+    totalRooms: rooms.length,
+    availableRooms: rooms.filter((r) => r.status === "available").length,
+    totalReservations: reservations.length,
+    totalUsers: users.length,
   };
+
+  // Recent activity tracking with types
+  interface ActivityItem {
+    id: string;
+    type: "reservation" | "user" | "room" | "system";
+    message: string;
+    time: string;
+    timestamp: Date;
+  }
+
+  let recentActivity: ActivityItem[] = [];
 
   async function checkAdmin() {
     try {
@@ -43,82 +61,141 @@
 
       user = userProfile;
     } catch (err) {
-      goto("/admin");
+      goto("/admin/login");
     }
   }
 
-  // In a real application, these would be API calls
-  async function fetchDashboardStats() {
+  async function fetchDashboardData() {
     try {
-      // Simulate API calls
-      stats = {
-        totalRooms: 50,
-        availableRooms: 12,
-        totalReservations: 156,
-        totalUsers: 89,
-      };
+      const [roomsRes, reservationsRes, roomTypesRes] = await Promise.all([
+        fetch(`${PUBLIC_BASE_URL}/rooms/inventories/`, {
+          credentials: "include",
+        }),
+        fetch(`${PUBLIC_BASE_URL}/reservations/reserves/`, {
+          credentials: "include",
+        }),
+        fetch(`${PUBLIC_BASE_URL}/rooms/types/`, { credentials: "include" }),
+      ]);
+
+      if (!roomsRes.ok || !reservationsRes.ok || !roomTypesRes.ok) {
+        throw new Error("Failed to fetch dashboard data");
+      }
+
+      // Parse response data
+      const roomsData = await roomsRes.json();
+      const reservationsData = await reservationsRes.json();
+      const roomTypesData = await roomTypesRes.json();
+
+      rooms = roomsData.results;
+      reservations = reservationsData.results;
+      roomTypes = roomTypesData.results;
+
+      // Add room type summary to activity
+      const roomTypeSummary = roomTypes.map((type) => ({
+        id: `type-${type.id}`,
+        type: "room" as const,
+        message: `${type.name}: ${rooms.filter((r) => r.room_type === type.id).length} rooms`,
+        time: "Current status",
+        timestamp: new Date(),
+      }));
+
+      // Generate recent activity from actual data
+      const activity: ActivityItem[] = [
+        ...reservations.slice(0, 3).map((res) => ({
+          id: `res-${res.id}`,
+          type: "reservation" as const,
+          message: `New reservation #${res.id} created`,
+          time: formatTimeAgo(new Date(res.created_at)),
+          timestamp: new Date(res.created_at),
+        })),
+        ...rooms
+          .filter((r) => r.status === "maintenance")
+          .slice(0, 2)
+          .map((room) => ({
+            id: `room-${room.room_number}`,
+            type: "room" as const,
+            message: `Room ${room.room_number} under maintenance`,
+            time: formatTimeAgo(
+              room.last_maintained ? new Date(room.last_maintained) : new Date()
+            ),
+            timestamp: room.last_maintained
+              ? new Date(room.last_maintained)
+              : new Date(),
+          })),
+        ...roomTypeSummary,
+      ];
+
+      recentActivity = activity.sort(
+        (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+      );
     } catch (err) {
-      console.error("Failed to fetch stats:", err);
+      console.error("Failed to fetch dashboard data:", err);
       error = "Failed to load dashboard statistics";
     } finally {
       isLoading = false;
     }
   }
 
-  onMount(async () => {
-    await checkAdmin();
-    await fetchDashboardStats();
-  });
+  function formatTimeAgo(date: Date): string {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (diffInSeconds < 60) return "just now";
+    if (diffInSeconds < 3600)
+      return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+    if (diffInSeconds < 86400)
+      return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+    return `${Math.floor(diffInSeconds / 86400)} days ago`;
+  }
+
+  // Quick actions handlers
+  async function handleAddRoom() {
+    goto("/admin/rooms/new");
+  }
+
+  async function handleViewReservations() {
+    goto("/admin/reservations");
+  }
+
+  async function handleManageUsers() {
+    goto("/admin/users");
+  }
 
   const statCards = [
     {
       name: "Total Rooms",
-      value: stats.totalRooms,
+      value: stats?.totalRooms || 0,
       icon: Hotel,
       color: "text-blue-600",
       bgColor: "bg-blue-100",
     },
     {
       name: "Available Rooms",
-      value: stats.availableRooms,
+      value: stats?.availableRooms || 0,
       icon: BedDouble,
       color: "text-green-600",
       bgColor: "bg-green-100",
     },
     {
       name: "Total Reservations",
-      value: stats.totalReservations,
+      value: stats?.totalReservations || 0,
       icon: CalendarDays,
       color: "text-purple-600",
       bgColor: "bg-purple-100",
     },
     {
       name: "Total Users",
-      value: stats.totalUsers,
+      value: stats?.totalUsers || 0,
       icon: Users,
       color: "text-orange-600",
       bgColor: "bg-orange-100",
     },
   ];
 
-  const recentActivity = [
-    {
-      type: "reservation",
-      message: "New reservation #1234 created",
-      time: "5 minutes ago",
-    },
-    {
-      type: "user",
-      message: "New user John Doe registered",
-      time: "10 minutes ago",
-    },
-    {
-      type: "room",
-      message: "Room 301 maintenance completed",
-      time: "1 hour ago",
-    },
-    { type: "system", message: "System backup completed", time: "2 hours ago" },
-  ];
+  onMount(async () => {
+    await checkAdmin();
+    await fetchDashboardData();
+  });
 </script>
 
 {#if user}
@@ -140,8 +217,9 @@
         </div>
       {:else if error}
         <div
-          class="bg-red-50 dark:bg-red-900/50 text-red-600 dark:text-red-200 p-4 rounded-lg"
+          class="bg-red-50 dark:bg-red-900/50 text-red-600 dark:text-red-200 p-4 rounded-lg flex items-center"
         >
+          <AlertTriangle class="w-5 h-5 mr-2" />
           {error}
         </div>
       {:else}
@@ -204,19 +282,22 @@
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button
-              class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200"
+              class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
+              on:click={handleAddRoom}
             >
               <Hotel class="w-5 h-5" />
               Add New Room
             </button>
             <button
-              class="flex items-center justify-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200"
+              class="flex items-center justify-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+              on:click={handleViewReservations}
             >
               <CalendarDays class="w-5 h-5" />
               View Reservations
             </button>
             <button
-              class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200"
+              class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
+              on:click={handleManageUsers}
             >
               <Users class="w-5 h-5" />
               Manage Users
