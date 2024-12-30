@@ -130,7 +130,7 @@ class ReserveTestCase(TestCase):
         self.assertEqual(bill.amount, 100)
         
     def test_reserve_non_exist_room(self):
-        response = self.client.post(f'/rooms/types/100/reserve/', {'check_in': '2021-01-01', 'check_out': '2021-01-02'})
+        response = self.client.post('/rooms/types/100/reserve/', {'check_in': '2021-01-01', 'check_out': '2021-01-02'})
         self.assertEqual(response.status_code, 404)
         self.assertEqual(Reserve.objects.count(), 0)
         
