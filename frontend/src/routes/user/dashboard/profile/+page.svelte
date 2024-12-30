@@ -75,26 +75,20 @@
         success = false;
 
         try {
-            // Handle avatar upload first if there's a new file
+            const formDataUpload = new FormData();
             if (avatarFile) {
-                const formDataUpload = new FormData();
-                formDataUpload.append('avatar', avatarFile);
-                // Note: This endpoint would need to be implemented in your API
-                await fetch(`${PUBLIC_BASE_URL}/users/profile/${userProfile.id}/avatar/`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    body: formDataUpload
-                });
+                formDataUpload.append('guest_profile.avatar', avatarFile);
             }
+            formDataUpload.append('first_name', formData.first_name);
+            formDataUpload.append('last_name', formData.last_name);
+            formDataUpload.append('guest_profile.phone_number', formData.guest_profile.phone_number);
+            formDataUpload.append('guest_profile.national_id', formData.guest_profile.national_id);
+            formDataUpload.append('guest_profile.address', formData.guest_profile.address);
 
-            // Update profile data
             const response = await fetch(`${PUBLIC_BASE_URL}/users/profile/${userProfile.id}/`, {
                 method: 'PATCH',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
+                body: formDataUpload
             });
 
             if (!response.ok) {
