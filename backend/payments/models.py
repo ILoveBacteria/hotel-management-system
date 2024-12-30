@@ -28,7 +28,6 @@ class Bill(models.Model):
         constraints = [
             CheckConstraint(condition=Q(due_date__gte=F('created_at')), name='due_date_after_created_at'),
             CheckConstraint(condition=((Q(status='waiting') | Q(status='overdue')) & Q(payment_date__isnull=True)) | (Q(status='paid') & Q(payment_date__isnull=False)), name='is_paid_xor_payment_date'),
-            # TODO: CheckConstraint(condition=Q(due_date__lte=F('reservation__check_in')), name='due_date_before_check_in'),
         ]
         
     def pay(self):
