@@ -2,9 +2,9 @@ from rest_framework import generics
 from rest_framework import permissions
 from drf_spectacular.utils import extend_schema_view
 
-from messages.models import Message
-from messages.serializers import MessageSerializer
-from messages import swagger
+from messages_.models import Message
+from messages_.serializers import MessageSerializer
+from messages_ import swagger
 
 @extend_schema_view(**swagger.message_create_view)
 class MessageCreateView(generics.CreateAPIView):
