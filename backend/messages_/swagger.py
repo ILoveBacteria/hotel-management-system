@@ -3,7 +3,7 @@ from drf_spectacular.utils import extend_schema
 message_create_view = {
     'post': extend_schema(
         summary="Create a message",
-        description="Create a new message. Permission: Only authenticated users can create messages."
+        description="Create a new message."
     )
 }
 
