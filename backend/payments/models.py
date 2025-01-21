@@ -1,5 +1,5 @@
 from django.utils import timezone
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Q, F, CheckConstraint
 
 from reservations.models import Reserve
@@ -8,7 +8,8 @@ from reservations.models import Reserve
 class OverdueManager(models.Manager):
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset.filter(due_date__lt=timezone.now()).update(status=Bill.OVERDUE)
+        for i in queryset.filter(due_date__lt=timezone.now(), status=Bill.WAITING):
+            i.overdue()
         return queryset
 
 
@@ -30,7 +31,7 @@ class Bill(models.Model):
     payment_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    reserve = models.OneToOneField(Reserve, on_delete=models.CASCADE)
+    reserve = models.OneToOneField(Reserve, on_delete=models.CASCADE, related_name='bill')
     
     class Meta:
         constraints = [
@@ -47,6 +48,15 @@ class Bill(models.Model):
         self.is_paid = True
         self.payment_date = timezone.now()
         self.save()
+        
+    @transaction.atomic
+    def overdue(self):
+        self.status = self.OVERDUE
+        self.save()
+        if self.reserve.status == Reserve.REGISTERED:
+            self.reserve.status = Reserve.CANCELED
+            self.reserve.save()
+        
     
     def __str__(self):
         return f'{self.amount} - {self.is_paid}'
