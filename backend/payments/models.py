@@ -5,6 +5,13 @@ from django.db.models import Q, F, CheckConstraint
 from reservations.models import Reserve
 
 
+class OverdueManager(models.Manager):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset.filter(due_date__lt=timezone.now()).update(status=Bill.OVERDUE)
+        return queryset
+
+
 class Bill(models.Model):
     WAITING = 'waiting'
     PAID = 'paid'
@@ -16,6 +23,7 @@ class Bill(models.Model):
         (OVERDUE, 'Overdue'),
     ]
     
+    objects = OverdueManager()
     amount = models.PositiveIntegerField()
     status = models.CharField(max_length=10, choices=status_choices, default=WAITING)
     due_date = models.DateTimeField()
