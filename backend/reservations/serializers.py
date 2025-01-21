@@ -48,7 +48,7 @@ class ReserveCreateSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         room_type = validated_data.pop('room_type')
         validated_data['user'] = request.user
-        validated_data['price'] = room_type.price
+        validated_data['price'] = room_type.price * (validated_data['check_out'] - validated_data['check_in']).days
         return super().create(validated_data)
     
     def pick_random_available_room(self, room_type, data):
