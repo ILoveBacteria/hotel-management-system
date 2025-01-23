@@ -16,7 +16,7 @@ from payments.serializers import BillSerializer
 @extend_schema_view(**swagger.user_list_view)
 class UserListView(generics.ListAPIView):
     serializer_class = UserProfileSerializer
-    queryset = get_user_model().objects.all()
+    queryset = get_user_model().objects.filter(is_staff=False)
     permission_classes = [IsAdminUser]
 
 
