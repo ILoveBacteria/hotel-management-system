@@ -52,10 +52,10 @@
                 first_name: userProfile?.first_name || "",
                 last_name: userProfile?.last_name || "",
                 guest_profile: {
-                    phone_number: userProfile?.guest_profile.phone_number || "",
-                    national_id: userProfile?.guest_profile.national_id || "",
-                    address: userProfile?.guest_profile.address || "",
-                    avatar: userProfile?.guest_profile.avatar || null
+                    phone_number: userProfile?.guest_profile?.phone_number || "",
+                    national_id: userProfile?.guest_profile?.national_id || "",
+                    address: userProfile?.guest_profile?.address || "",
+                    avatar: userProfile?.guest_profile?.avatar || null
                 }
             };
             
@@ -103,6 +103,7 @@
             // Reset file input
             avatarFile = null;
             avatarPreview = null;
+
         } catch (err) {
             console.error("Failed to update profile:", err);
             error = "Failed to update profile. Please try again.";
@@ -152,9 +153,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            {#if userProfile.guest_profile.avatar || avatarPreview}
+                            {#if userProfile?.guest_profile?.avatar || avatarPreview}
                                 <img
-                                    src={avatarPreview || userProfile.guest_profile.avatar || ''}
+                                    src={avatarPreview || userProfile?.guest_profile?.avatar || ''}
                                     alt={userProfile.first_name}
                                     class="w-20 h-20 rounded-full object-cover"
                                 />

@@ -73,8 +73,8 @@
         loadDashboardData();
     }
 
-    onMount(() => {
-        loadDashboardData();
+    onMount(async () => {
+        await loadDashboardData();
     });
 </script>
 
@@ -105,13 +105,13 @@
         
         <BookingTable bookings={reservations} />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <BookingForm />
             <ServiceForm 
                 {selectedService} 
                 {serviceDate} 
                 {serviceTime} 
             />
-        </div>
+        </div> -->
     </div>
 </DashboardLayout>
