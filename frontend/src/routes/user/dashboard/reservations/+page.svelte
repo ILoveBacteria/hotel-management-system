@@ -88,7 +88,6 @@
 
     try {
 
-      alert(getCookie("csrftoken"))
       const response = await fetch(
         `${PUBLIC_BASE_URL}/rooms/types/${selectedRoomType.id}/reserve/`,
         {
@@ -110,7 +109,7 @@
 
       success = true;
       setTimeout(() => {
-        goto("/user/dashboard");
+        goto("/user/dashboard/payments");
       }, 2000);
     } catch (err) {
       console.error("Reservation failed:", err);
@@ -152,7 +151,7 @@
           class="bg-green-50 dark:bg-green-900/50 text-green-600 dark:text-green-200 p-4 rounded-lg flex items-center"
         >
           <CheckCircle class="w-5 h-5 mr-2" />
-          Reservation created successfully! Redirecting to dashboard...
+          Reservation created successfully! Redirecting to payments...
         </div>
       {/if}
 

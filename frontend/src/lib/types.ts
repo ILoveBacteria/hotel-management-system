@@ -52,7 +52,7 @@ export interface RoomImage {
   image: string;
   uploaded_at: string;
   is_primary: boolean;
-  room_type: number;
+  room_type: string;
 }
 
 export interface Bill {
