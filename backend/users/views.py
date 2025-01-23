@@ -13,6 +13,13 @@ from payments.models import Bill
 from payments.serializers import BillSerializer
 
 
+@extend_schema_view(**swagger.user_list_view)
+class UserListView(generics.ListAPIView):
+    serializer_class = UserProfileSerializer
+    queryset = get_user_model().objects.all()
+    permission_classes = [IsAdminUser]
+
+
 @extend_schema_view(**swagger.user_profile)
 class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
