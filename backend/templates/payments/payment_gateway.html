@@ -1012,7 +1012,7 @@
             DocumentReadyOptions(options);
 
             startTimer({
-                totalTime: 600,
+                totalTime: {{ time_out }},
                 display: document.querySelector('#countdown-lg'),
                 showprogress: true,
                 progressWidth: 100,
@@ -1025,7 +1025,7 @@
 
 
             startTimer({
-                totalTime: 600,
+                totalTime: {{ time_out }},
                 display: document.querySelector('#countdown-sm'),
                 showprogress: false,
                 pastSecond: _options.secondsPast,
