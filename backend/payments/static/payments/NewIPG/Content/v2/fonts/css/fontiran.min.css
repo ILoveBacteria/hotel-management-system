@@ -1,0 +1,47 @@
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/eot/IRANSansWeb.eot?');
+    src: url('../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'), url('../fonts/woff/IRANSansWeb.woff') format('woff'), url('../fonts/ttf/IRANSansWeb.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: yekan_regular;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.eot?');
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.eot?#iefix') format('embedded-opentype'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.woff') format('woff'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: yekan_regular;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.eot?');
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.eot?#iefix') format('embedded-opentype'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.woff') format('woff'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_04_Regular.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: yekan_medium;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_05_Medium.eot?');
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_05_Medium.eot?#iefix') format('embedded-opentype'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_05_Medium.woff') format('woff'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_05_Medium.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: yekan_bold;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_06_Bold.eot?');
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_06_Bold.eot?#iefix') format('embedded-opentype'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_06_Bold.woff') format('woff'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_06_Bold.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: yekan_heavy;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_07_Heavy.eot?');
+    src: url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_07_Heavy.eot?#iefix') format('embedded-opentype'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_07_Heavy.woff') format('woff'), url('../YekanBakh/FaNum/Yekan_Bakh_FaNum_07_Heavy.ttf') format('truetype')
+}
