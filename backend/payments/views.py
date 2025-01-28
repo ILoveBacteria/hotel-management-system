@@ -48,4 +48,10 @@ class PaymentGatewayView(View):
         bill = get_object_or_404(Bill, id=bill_id)
         # TODO: do not let overdue bills to be paid
         time_out_seconds = (bill.due_date - timezone.now()).total_seconds()
-        return render(request, 'payments/payment_gateway.html', {'bill': bill, 'time_out': time_out_seconds})
+        hotel_name = 'هتل داری'
+        context = {
+            'bill': bill,
+            'time_out': time_out_seconds,
+            'hotel_name': hotel_name
+        }
+        return render(request, 'payments/payment_gateway.html', context)
