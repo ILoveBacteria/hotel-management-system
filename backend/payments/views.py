@@ -36,7 +36,7 @@ class PayBillView(generics.GenericAPIView):
     queryset = Bill.objects.all()
     serializer_class = None
     
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         bill = self.get_object()
         if bill.status == Bill.PAID:
             return Response({'message': 'Bill already paid'}, status=status.HTTP_400_BAD_REQUEST)

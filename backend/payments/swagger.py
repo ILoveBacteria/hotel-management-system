@@ -16,7 +16,7 @@ bill_detail_view = {
 }
 
 pay_bill_view = {
-    'post': extend_schema(
+    'get': extend_schema(
         summary="Pay a bill",
         description="Pay a bill. Permission: Only bill owners can access this endpoint.",
         responses={
