@@ -39,16 +39,6 @@ class Bill(models.Model):
             CheckConstraint(condition=((Q(status='waiting') | Q(status='overdue')) & Q(payment_date__isnull=True)) | (Q(status='paid') & Q(payment_date__isnull=False)), name='is_paid_xor_payment_date'),
         ]
         
-    def pay(self):
-        if self.status == self.PAID:
-            return
-        if self.status == self.OVERDUE or self.due_date < timezone.now():
-            self.status = self.OVERDUE
-            raise ValueError('Cannot pay overdue bill')
-        self.is_paid = True
-        self.payment_date = timezone.now()
-        self.save()
-        
     @transaction.atomic
     def overdue(self):
         self.status = self.OVERDUE
@@ -60,3 +50,15 @@ class Bill(models.Model):
     
     def __str__(self):
         return f'{self.amount} - {self.is_paid}'
+
+
+class CreditCard(models.Model):
+    number = models.CharField(max_length=19)
+    cvv2 = models.CharField(max_length=4)
+    expire_month = models.CharField(max_length=2)
+    expire_year = models.CharField(max_length=2)
+    password = models.CharField(max_length=255)
+    bill = models.ForeignKey(Bill, on_delete=models.CASCADE, related_name='credit_card')
+    
+    def __str__(self):
+        return f'{self.number}'

@@ -276,7 +276,7 @@
 
                             <div class="row">
                                 <div class="container text-right">
-                                    <form action="{% static 'payments/NewIPG/ProcessPayment' %}" autocomplete="off" id="PayForm"
+                                    <form autocomplete="off" id="PayForm"
                                         method="post"><input name="__RequestVerificationToken" type="hidden"
                                             value="HN_UyHn5--nCRNqceDjlNxwbRm5s0ycTLSrGpA7VU2DmBPypc24lQPZ5t_a7hcI0-jAhpYUWQxq6JT_CPP_0x4Np6Ao1" /><input
                                             data-val="true" data-val-number="The field Token must be a number."
@@ -328,7 +328,7 @@
                                                     data-val-length="شماره کارت به درستی وارد نشده است"
                                                     data-val-length-max="19" data-val-length-min="19"
                                                     data-val-required="شماره کارت وارد نشده است" id="pan" maxlength="19"
-                                                    name="CardNumber" tabindex="1" title="شماره کارت" type="tel"
+                                                    name="number" tabindex="1" title="شماره کارت" type="tel"
                                                     value="" />
 
 
@@ -372,7 +372,7 @@
                                                             data-val-regex="cvv2 به درستی وارد نشده است"
                                                             data-val-regex-pattern="^\d{3}$|^\d{4}$"
                                                             data-val-required="cvv2 وارد نشده است" id="cvv2"
-                                                            inputmode="numeric" maxlength="4" name="Cvv2" tabindex="3"
+                                                            inputmode="numeric" maxlength="4" name="cvv2" tabindex="3"
                                                             title="CVV2" type="tel" value="" />
                                                         <img src="{% static 'payments/NewIPG/content-small/v2/images/keyboard.png' %}"
                                                             class="keypadBtn" />
@@ -407,7 +407,7 @@
                                                             data-val-range-min="1" data-val-regex="ماه نامعتبر"
                                                             data-val-regex-pattern="^\d{2}$"
                                                             data-val-required="ماه نامعتبر" id="txtExpM" maxlength="2"
-                                                            name="ExpireMonth" placeholder="ماه" tabindex="4" type="tel"
+                                                            name="expire_month" placeholder="ماه" tabindex="4" type="tel"
                                                             value="" />
                                                         <div class="d-inline exp-date-seprate">/</div>
                                                         <input autocomplete="off"
@@ -417,7 +417,7 @@
                                                             data-val-range-min="0" data-val-regex="سال نامعتبر"
                                                             data-val-regex-pattern="^\d{2}$"
                                                             data-val-required="سال نامعتبر" id="txtExpY" maxlength="2"
-                                                            name="ExpireYear" placeholder="سال" tabindex="5" type="tel"
+                                                            name="expire_year" placeholder="سال" tabindex="5" type="tel"
                                                             value="" />
                                                     </div>
                                                 </div>
@@ -493,7 +493,7 @@
                                                         data-val-regex="رمز دوم به درستی وارد نشده است"
                                                         data-val-regex-pattern="^\d{5,12}$"
                                                         data-val-required="رمز دوم وارد نشده است" id="pin2"
-                                                        inputmode="numeric" maxlength="12" name="Pin2" tabindex="7"
+                                                        inputmode="numeric" maxlength="12" name="password" tabindex="7"
                                                         title="رمز  دوم کارت" type="tel" value="" />
                                                     <button class="request-dynamicPass" type="button" tabindex="100">
                                                         درخواست رمز پویا
@@ -573,9 +573,10 @@
                                             </div>
                                             <div class="col-md-4 col-xs-12 float-right cancel">
                                                 <div class="form-group">
-                                                    <button class="btn btn-danger col-12" type="button" id="btnCancel"
-                                                        onclick="cancelPayment()" tabindex="11">انصراف</button>
-
+                                                    <a href={{ cancel_button }}>
+                                                        <button class="btn btn-danger col-12" type="button" id="btnCancel"
+                                                         tabindex="11">انصراف</button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
