@@ -369,13 +369,13 @@
 										class="px-6 py-4 whitespace-nowrap text-sm"
 									>
 										{#if bill.status === 'waiting'}
-											<button
-												class="text-blue-600 hover:text-blue-700 font-medium"
-												on:click={() =>
-													handlePayment(bill.id)}
-											>
-												Pay Now
-											</button>
+											<a href="https://api-hotel.moeinarabi.ir/payments/bills/{bill.id}/pay">
+												<button
+													class="text-blue-600 hover:text-blue-700 font-medium"
+												>
+													Pay Now
+												</button>
+											</a>
 										{:else if bill.status === 'overdue'}
 											<button
 												class="text-red-600 hover:text-red-700 font-medium"
