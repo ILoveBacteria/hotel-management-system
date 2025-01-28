@@ -132,17 +132,17 @@
           <div
             class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold"
           >
-            {user.first_name[0]}{user.last_name[0]}
+            {user?.first_name[0]}{user?.last_name[0]}
           </div>
           <div class="flex-1 min-w-0">
             <p
               class="text-sm font-medium text-gray-900 dark:text-white truncate"
             >
-              {user.first_name}
-              {user.last_name}
+              {user?.first_name}
+              {user?.last_name}
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
-              {user.email}
+              {user?.email}
             </p>
           </div>
         </div>

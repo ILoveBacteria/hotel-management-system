@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { PUBLIC_BASE_URL } from '$env/static/public';
-	import { Home, Calendar, CreditCard, User, LogOut } from 'lucide-svelte';
+	import {
+		Home,
+		Calendar,
+		CreditCard,
+		User,
+		LogOut,
+		BedDouble,
+		ReceiptSwissFranc
+	} from 'lucide-svelte';
 	import { page } from '$app/stores';
 
 	export let username: string;
-	// Initialize selected based on the current path
 	$: selected = $page.url.pathname.split('/').pop() || 'dashboard';
 
 	async function logout() {
@@ -21,9 +28,7 @@
 	}
 
 	function handleNavigation(path: string, newSelected: string) {
-		// Prevent navigation if we're already on the selected tab
 		if (selected === newSelected) return;
-
 		selected = newSelected;
 		goto(path);
 	}
@@ -49,6 +54,30 @@
 				<Home class="w-5 h-5 mr-3" />
 				Dashboard
 			</button>
+
+			<button
+				on:click={() => handleNavigation('/user/dashboard/rooms', 'rooms')}
+				class="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 {selected ===
+				'rooms'
+					? 'bg-gray-100 dark:bg-gray-700'
+					: ''}"
+			>
+				<BedDouble class="w-5 h-5 mr-3" />
+				Browse Rooms
+			</button>
+
+
+			<button
+				on:click={() => handleNavigation('/user/dashboard/reservations/list', 'rooms')}
+				class="flex items-center w-full px-4 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 {selected ===
+				'rooms'
+					? 'bg-gray-100 dark:bg-gray-700'
+					: ''}"
+			>
+				<ReceiptSwissFranc class="w-5 h-5 mr-3" />
+				Reservation List
+			</button>
+
 			<button
 				on:click={() =>
 					handleNavigation(
@@ -61,8 +90,9 @@
 					: ''}"
 			>
 				<Calendar class="w-5 h-5 mr-3" />
-				My Reservations
+				Reserve
 			</button>
+
 			<button
 				on:click={() =>
 					handleNavigation('/user/dashboard/payments', 'payments')}
@@ -74,6 +104,7 @@
 				<CreditCard class="w-5 h-5 mr-3" />
 				Payments
 			</button>
+
 			<button
 				on:click={() =>
 					handleNavigation('/user/dashboard/profile', 'profile')}

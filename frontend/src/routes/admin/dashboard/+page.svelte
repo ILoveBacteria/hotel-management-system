@@ -90,9 +90,13 @@
 			const reservationsData = await reservationsRes.json();
 			const roomTypesData = await roomTypesRes.json();
 
+
+			
+			
 			rooms = roomsData.results;
 			reservations = reservationsData.results;
 			roomTypes = roomTypesData.results;
+			console.log(rooms);
 
 			// Add room type summary to activity
 			const roomTypeSummary = roomTypes.map((type) => ({
@@ -158,7 +162,7 @@
 
 	// Quick actions handlers
 	async function handleAddRoom() {
-		goto('/admin/rooms/new');
+		goto('/admin/rooms');
 	}
 
 	async function handleViewReservations() {

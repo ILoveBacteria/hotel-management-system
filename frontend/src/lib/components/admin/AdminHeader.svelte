@@ -17,7 +17,7 @@
             });
 
             if (response.ok) {
-                goto('/admin');
+                goto('/');
             }
         } catch (error) {
             console.error('Logout failed:', error);

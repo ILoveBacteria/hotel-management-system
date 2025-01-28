@@ -223,8 +223,11 @@
         return roomType ? roomType.name : 'Unknown';
     }
 
-    function getRoomNumberById(roomId: number): string {
-        const room = rooms.find((r) => r.room_number === roomId);
+    function getRoomNumberById(roomId: string): string {
+
+        const extractRoomId = roomId.split("/")[roomId.split("/").length-2]
+
+        const room = rooms.find((r) => r.room_number === +extractRoomId);
         return room ? room.room_number.toString() : 'N/A';
     }
 
@@ -371,7 +374,7 @@
                                         User #{reservation.user}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        Room #{getRoomNumberById(reservation.room)}
+                                        Room #{getRoomNumberById(reservation.room.toString())}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                         {formatDate(reservation.check_in)}
