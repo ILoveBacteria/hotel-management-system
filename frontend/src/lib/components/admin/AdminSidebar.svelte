@@ -12,6 +12,7 @@
     Image,
     BedDouble,
     CreditCard,
+    Inbox,
   } from "lucide-svelte";
 
   export let user: UserProfile;
@@ -51,6 +52,12 @@
       href: "/admin/payments",
       icon: CreditCard,
       description: "Track bills and payments",
+    },
+    {
+      name: "Messages",
+      href: "/admin/messages",
+      icon: Inbox,
+      description: "View messages and feedbacks",
     },
     {
       name: "Users",

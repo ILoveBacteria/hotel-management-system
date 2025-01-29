@@ -32,6 +32,8 @@
 		totalUsers: users.length,
 	};
 
+	let statCards = [];
+
 	// Recent activity tracking with types
 	interface ActivityItem {
 		id: string;
@@ -67,7 +69,7 @@
 
 	async function fetchDashboardData() {
 		try {
-			const [roomsRes, reservationsRes, roomTypesRes] = await Promise.all(
+			const [roomsRes, reservationsRes, roomTypesRes, userRes] = await Promise.all(
 				[
 					fetch(`${PUBLIC_BASE_URL}/rooms/inventories/`, {
 						credentials: 'include',
@@ -76,6 +78,9 @@
 						credentials: 'include',
 					}),
 					fetch(`${PUBLIC_BASE_URL}/rooms/types/`, {
+						credentials: 'include',
+					}),
+					fetch(`${PUBLIC_BASE_URL}/users/`, {
 						credentials: 'include',
 					}),
 				],
@@ -89,10 +94,49 @@
 			const roomsData = await roomsRes.json();
 			const reservationsData = await reservationsRes.json();
 			const roomTypesData = await roomTypesRes.json();
+			const usersData = await userRes.json();
 
 			rooms = roomsData.results;
 			reservations = reservationsData.results;
 			roomTypes = roomTypesData.results;
+			users = usersData.results;
+
+			//update stats variable
+			stats.totalRooms = rooms.length;
+			stats.availableRooms = rooms.filter((r) => r.status === 'available').length;
+			stats.totalReservations = reservations.length;
+			stats.totalUsers = users.length;
+
+			statCards = [
+				{
+					name: 'Total Rooms',
+					value: stats.totalRooms,
+					icon: Hotel,
+					color: 'text-blue-600',
+					bgColor: 'bg-blue-100',
+				},
+				{
+					name: 'Available Rooms',
+					value: stats.availableRooms,
+					icon: BedDouble,
+					color: 'text-green-600',
+					bgColor: 'bg-green-100',
+				},
+				{
+					name: 'Total Reservations',
+					value: stats.totalReservations,
+					icon: CalendarDays,
+					color: 'text-purple-600',
+					bgColor: 'bg-purple-100',
+				},
+				{
+					name: 'Total Users',
+					value: stats.totalUsers,
+					icon: Users,
+					color: 'text-orange-600',
+					bgColor: 'bg-orange-100',
+				},
+			];
 
 			// Add room type summary to activity
 			const roomTypeSummary = roomTypes.map((type) => ({
@@ -140,6 +184,8 @@
 		} finally {
 			isLoading = false;
 		}
+
+		return statCards;
 	}
 
 	function formatTimeAgo(date: Date): string {
@@ -168,37 +214,6 @@
 	async function handleManageUsers() {
 		goto('/admin/users');
 	}
-
-	const statCards = [
-		{
-			name: 'Total Rooms',
-			value: stats?.totalRooms || 0,
-			icon: Hotel,
-			color: 'text-blue-600',
-			bgColor: 'bg-blue-100',
-		},
-		{
-			name: 'Available Rooms',
-			value: stats?.availableRooms || 0,
-			icon: BedDouble,
-			color: 'text-green-600',
-			bgColor: 'bg-green-100',
-		},
-		{
-			name: 'Total Reservations',
-			value: stats?.totalReservations || 0,
-			icon: CalendarDays,
-			color: 'text-purple-600',
-			bgColor: 'bg-purple-100',
-		},
-		{
-			name: 'Total Users',
-			value: stats?.totalUsers || 0,
-			icon: Users,
-			color: 'text-orange-600',
-			bgColor: 'bg-orange-100',
-		},
-	];
 
 	onMount(async () => {
 		await checkAdmin();
