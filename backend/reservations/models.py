@@ -36,7 +36,7 @@ class Reserve(models.Model):
         ]
     
     def __str__(self):
-        return f'{self.id} - {self.status}'
+        return f'{self.room.room_type}'
 
 
 class CancelledReserve(models.Model):
