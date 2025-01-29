@@ -371,7 +371,7 @@
                                         User #{reservation.user}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        Room #{getRoomNumberById(reservation.room)}
+                                        Room {reservation.room}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                         {formatDate(reservation.check_in)}
