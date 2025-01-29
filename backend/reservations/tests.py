@@ -2,12 +2,27 @@ from django.test import TestCase, Client
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.db.models.signals import post_save
 from rest_framework import status
 
 from reservations.models import Reserve, CancelledReserve
+from reservations.signals import update_bill_status
 from reservations import queries
 from rooms.models import RoomType
 from payments.models import Bill
+
+
+def disable_post_save(signal, sender, receiver):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            signal.disconnect(receiver, sender=sender)
+            try:
+                return func(*args, **kwargs)
+            finally:
+                # Reconnect the signal
+                signal.connect(receiver, sender=sender)
+        return wrapper
+    return decorator
 
 
 class AvailableRoomsQueryTestCase(TestCase):
@@ -22,6 +37,7 @@ class AvailableRoomsQueryTestCase(TestCase):
         self.room6 = self.room_type.rooms.create(room_number=106, is_active=False)
         self.user = User.objects.create_user(username='testuser', password='testpassword')
     
+    @disable_post_save(post_save, Reserve, update_bill_status)
     def test_overlap(self):
         Reserve.objects.create(room=self.room0, check_in='2021-01-01', check_out='2021-01-02', status=Reserve.REGISTERED, price=100, user=self.user)
         Reserve.objects.create(room=self.room0, check_in='2021-01-03', check_out='2021-01-05', status=Reserve.REGISTERED, price=100, user=self.user)
@@ -91,6 +107,7 @@ class ReserveTestCase(TestCase):
         self.assertEqual(reserve.price, 100)
         self.assertEqual(reserve.user, self.user)
     
+    @disable_post_save(post_save, Reserve, update_bill_status)
     def test_reserve_create_overlap(self):
         room_type = RoomType.objects.create(name='Test Room Type', price=100, double_beds=2, single_beds=1, description='Test Description')
         room = room_type.rooms.create(room_number=110, is_active=True)
@@ -156,6 +173,7 @@ class CancelReservationTestCase(TestCase):
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         
+    @disable_post_save(post_save, Reserve, update_bill_status)
     def test_cancel_reserve_owner_permission(self):
         self.client.login(username='testuser2', password='testpassword2')
         url = reverse('reserves-cancel', kwargs={'reserve__id': self.reserve.id})
@@ -165,6 +183,7 @@ class CancelReservationTestCase(TestCase):
         self.reserve.refresh_from_db()
         self.assertEqual(self.reserve.status, Reserve.CANCELED)
     
+    @disable_post_save(post_save, Reserve, update_bill_status)
     def test_cancel_reserve_admin_permission(self):
         self.client.login(username='adminuser', password='adminpassword')
         url = reverse('reserves-cancel', kwargs={'reserve__id': self.reserve.id})
@@ -180,6 +199,7 @@ class CancelReservationTestCase(TestCase):
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
     
+    @disable_post_save(post_save, Reserve, update_bill_status)
     def test_reserve_status_change(self):
         self.client.login(username='adminuser', password='adminpassword')
         url = reverse('reserves-cancel', kwargs={'reserve__id': self.reserve.id})

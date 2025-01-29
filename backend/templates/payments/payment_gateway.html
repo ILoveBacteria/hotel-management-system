@@ -1,0 +1,1075 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="fa" dir="rtl">
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>درگاه پرداخت اینترنتی تجارت الکترونیک پارسیان</title>
+
+    <link href="{% static 'payments/NewIPG/Content/v2/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/V22/lib/bootstrap/bootstrap-icons/font/bootstrap-icons.min.css' %}"
+        rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/v2/css/style.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/v2/lib/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/v2/lib/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css' %}"
+        rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/v2/fonts/css/fontiran.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/v2/lib/sweetalert/sweetalert.min.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'payments/NewIPG/Content/V22/lib/Toastr/Toastr.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'payments/NewIPG/Content/V22/fonts/text-security/text-security-disc.css' %}" rel="stylesheet" />
+
+
+    <script type="text/javascript">
+        function docReady(fn) {
+            // see if DOM is already available
+            if (document.readyState === "complete" || document.readyState === "interactive") {
+                // call on next available tick
+                setTimeout(fn, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+    </script>
+</head>
+
+<body class="">
+
+
+    <img src="{% static 'payments/NewIPG/Content/V22/images/833.gif' %}" class="d-none" />
+
+    <div id="paymentwrp">
+        <div class="wrapper">
+
+            <section id="Header">
+                <div class="d-none col-lg-header">
+                    <div class="col-3 m-0 p-0 float-lg-left">
+                        <div class="col-12 text-center mb-3 logo">
+                            <img src="{% static 'payments/NewIPG/Content/v2/images/pec-logo.png' %}" />
+
+
+                        </div>
+                    </div>
+                    <div class="col-3 m-0 p-0 float-lg-right">
+                        <div class="col-12 text-center mb-3 logo">
+                            <img src="{% static 'payments/NewIPG/Content/v2/images/shaparak-logo.png' %}" />
+
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="row">
+                    <div class="d-none col-xs-header">
+                        <h1 class="header-title text-center">پرداخت اینترنتی تجارت الکترونیک پارسیان</h1>
+                        <div class="m-0 p-0 float-left">
+                            <div class="col-12 text-center mb-1">
+                                <img src="{% static 'payments/NewIPG/Content/v2/images/pec-logo.png' %}" width="80" />
+
+
+                            </div>
+                        </div>
+                        <div class="m-0 p-0 float-right">
+                            <div class="col-12 text-center mb-1">
+                                <img src="{% static 'payments/NewIPG/Content/v2/images/shaparak-logo.png' %}" width="80" />
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+
+
+
+
+
+
+            <div class="row">
+                <div class="m-0 p-0 payment-info-lg">
+                    <div class="col-12 gray-box box-right" id="col1">
+                        <h3 class="text-center d-block pectitle">پرداخت اینترنتی تجارت الکترونیک پارسیان</h3>
+                        <span class="amountLabel">مبلغ قابل پرداخت</span>
+                        <div class="amount">
+                            <span>{{ bill.amount }}</span>
+
+                        </div>
+                        <span class="unit m-0 perc">ریال</span>
+
+                        <div class="mt-3" style="width:90%;margin:auto">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <img src="{% static 'payments/logo.jpg' %}" />
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="container mt-3 ">
+
+                                <div class="mt-1 row">
+                                    <div class="m-0 p-0 R">
+                                        <div class="boxedRight col-md-12 m-0 p-2 d-block">
+                                            نام فروشگاه
+                                        </div>
+                                    </div>
+                                    <div class="m-0 p-0 L">
+                                        <span class="boxedLeft col-md-12 mr-1 p-2 d-block">
+                                            {{ hotel_name }}
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="mt-1 row">
+                                    <div class="m-0 p-0 R">
+                                        <div class="boxedRight col-md-12 m-0 p-2 d-block">
+                                            آدرس وب سایت
+                                        </div>
+                                    </div>
+                                    <div class="m-0 p-0 L">
+                                        <span class="boxedLeft col-md-12 mr-1 p-2 d-block">
+                                            https://hotel.moeinarabi.ir
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class=" mt-1 row">
+                                    <div class="m-0 p-0 R">
+                                        <div class="boxedRight col-md-12 m-0 p-2 d-block">
+                                            کد پذیرنده
+                                        </div>
+                                    </div>
+                                    <div class="m-0 p-0 L">
+                                        <span class="boxedLeft col-md-12 mr-1 p-2 d-block">
+                                            ۴۳۸۱۴۹۲۳۶۴
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="mt-1 row">
+                                    <div class="m-0 p-0 R">
+                                        <div class="boxedRight col-md-12 m-0 p-2 d-block">
+                                            شماره ترمینال
+                                        </div>
+                                    </div>
+                                    <div class="m-0 p-0 L">
+                                        <span class="boxedLeft col-md-12 mr-1 p-2 d-block">
+                                            ۹۸۶۵۲۱۶۷
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="text-center mb-3 row" style="margin-top:20px;margin-bottom:30px;">
+                                    <div id="countdownProgress-lg" class="col-12 p-0"></div>
+                                    <div id="countdown-lg" style="font-size:45px;margin:auto" class="text-center"></div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"> </div>
+
+                        </div>
+
+                        <div class="contactus-lg">
+
+                            <h6 class="text-center mt-3 contactus" style="margin-top:30px;">
+                                اطلاعات تماس پشتیبانی
+
+                                ۲۳۱۸ - ۰۲۱
+                            </h6>
+                            <div class="copyright">
+                                <span class="d-block text-center">
+                                    کلیه حقوق متعلق به شرکت تجارت الکترونیک پارسیان می باشد
+                                </span>
+                                <div class="blind">
+
+                                    حمایت از حقوق روشندلان
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="payment-info-sm col-12 d-none">
+                    <div class="mobile-amount"
+                        style="text-align:right!important;margin-top:unset!important;line-height:1rem!important;">
+                        <div class="float-right amount"
+                            style="margin-top:15px;line-height:1rem!important;text-align:right!important">
+                            <small style="font-size:1rem!important" class="text-white">مبلغ قابل پرداخت</small>
+                            <h1 class="text-white">{{ bill.amount }}</h1>
+                        </div>
+                        <div class="float-left" id="mobile-rial-unit">
+                            <h1>&nbsp;</h1>
+                            <small style="font-size:1rem;">ریال</small>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="float-left transform">
+
+                    </div>
+                </div>
+                <div class="expire-time-sm col-12 p-0">
+                    <div class="mt-1 ">
+                        <div class="boxedRight d-inline float-right" style="width:49%!important">
+                            زمان باقی مانده
+                        </div>
+                        <div class="boxedLeft  d-inline Tokentimer float-left" id="countdown-sm"
+                            style="width:49%!important">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="mb-0 p-0 payment-form" style="margin-top:-158px;">
+                    <div class="white-box" id="col2">
+                        <div class="payment-form-wrp">
+                            <div id="tspSlider">
+
+
+
+                                <div class="slider noTsp" style="width:85%;">
+                                    <div class="item">
+                                        <input type="hidden" value="" class="exp-date custom-exp-date" />
+                                        <input type="hidden" value="" class="card-number custom-card-number" />
+                                        <input type="hidden" value="" class="moblile-number custom-moblile-number" />
+                                        <div class="bankCard">
+                                            <div class="logo"></div>
+                                            <div class="logobg">
+                                            </div>
+                                            <div class="card-logo">
+                                                <i class="fa fa-university fa-1x text-info bank-logo-image"
+                                                    aria-hidden="true"></i>
+                                            </div>
+                                            <img src="{% static 'payments/NewIPG/content-small/v2/images/shetab.png' %}"
+                                                class="shetab-logo-image" />
+                                            <div class="card-number new-Card">
+                                                <div class="form-group">
+                                                    <p class="card-number">
+                                                        <span class="d-block new-card-number">
+
+                                                        </span>
+
+                                                        <span class="float-left f-size-13 d-block new-card-expire ">
+
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="bank-color custom-bank-color"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="message">
+
+                            </div>
+
+                            <div class="row">
+                                <div class="container text-right">
+                                    <form autocomplete="off" id="PayForm"
+                                        method="post"><input name="__RequestVerificationToken" type="hidden"
+                                            value="HN_UyHn5--nCRNqceDjlNxwbRm5s0ycTLSrGpA7VU2DmBPypc24lQPZ5t_a7hcI0-jAhpYUWQxq6JT_CPP_0x4Np6Ao1" /><input
+                                            data-val="true" data-val-number="The field Token must be a number."
+                                            data-val-required="The Token field is required." id="hToken" name="Token"
+                                            type="hidden" value="299316806893649" /><input data-val="true"
+                                            data-val-number="The field Amount must be a number."
+                                            data-val-required="The Amount field is required." id="Amount" name="Amount"
+                                            type="hidden" value="223000" /><input data-val="true"
+                                            data-val-number="The field MerchantMaxAllowTransactionAmount must be a number."
+                                            data-val-required="The MerchantMaxAllowTransactionAmount field is required."
+                                            id="MerchantMaxAllowTransactionAmount"
+                                            name="MerchantMaxAllowTransactionAmount" type="hidden"
+                                            value="50000000000" /><input id="MerchantName" name="MerchantName"
+                                            type="hidden" value="{{ hotel_name }}" /><input data-val="true"
+                                            data-val-number="The field MerchantNo must be a number."
+                                            data-val-required="The MerchantNo field is required." id="MerchantNo"
+                                            name="MerchantNo" type="hidden" value="4381492364" /><input data-val="true"
+                                            data-val-number="The field OrderId must be a number."
+                                            data-val-required="The OrderId field is required." id="txtOrderId"
+                                            name="OrderId" type="hidden" value="11729610662525808" /><input
+                                            data-val="true" data-val-number="The field TerminalNo must be a number."
+                                            data-val-required="The TerminalNo field is required." id="TerminalNo"
+                                            name="TerminalNo" type="hidden" value="98652167" /><input data-val="true"
+                                            data-val-maxlength="منشأ بیش از اندازه مجاز طولانی است"
+                                            data-val-maxlength-max="40" id="Originator" name="Originator" type="hidden"
+                                            value="" /><input id="CardTspToken" name="CardTspToken" type="hidden"
+                                            value="" />
+                                        <div class="form-group first-form-group">
+                                            <div>
+                                                <label>
+                                                    شماره کارت
+                                                    <img src="https://pec.shaparak.ir/NewIPG/Content/V22/images/833.gif"
+                                                        width="20" class="loadingPanImage" style="display:none;" />
+                                                </label>
+                                                <span class="desktop-error-desc">
+                                                    <span class="field-validation-valid text-danger"
+                                                        data-valmsg-for="CardNumber" data-valmsg-replace="true"></span>
+                                                </span>
+                                            </div>
+                                            <div class="form-control focus position-relative">
+
+                                                <span class="bi bi-x-circle text-danger" id="CleanPan"
+                                                    title="پاک کردن کارت"></span>
+
+
+                                                <input autocomplete="off"
+                                                    class="effect-8 border-0 col-12 float-right inputbox text-center creditCard"
+                                                    data-nextSelector=".cvv2" data-val="true"
+                                                    data-val-length="شماره کارت به درستی وارد نشده است"
+                                                    data-val-length-max="19" data-val-length-min="19"
+                                                    data-val-required="شماره کارت وارد نشده است" id="pan" maxlength="19"
+                                                    name="number" tabindex="1" title="شماره کارت" type="tel"
+                                                    value="" />
+
+
+                                                <div class="card-logo col-1">
+
+                                                </div>
+                                                <img src="{% static 'payments/NewIPG/content-small/v2/images/keyboard.png' %}"
+                                                    class="keypadBtn">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="segmentHolder" style="display:none;">
+                                            <label>
+                                                سگمنت
+
+                                            </label>
+
+                                            <span class="desktop-error-desc">
+                                                <span class="field-validation-valid text-danger" data-valmsg-for="SrvId"
+                                                    data-valmsg-replace="true"></span>
+                                            </span>
+
+                                            <select Style="direction: rtl" class="form-control custom-select"
+                                                data-val="true" data-val-number="The field سگمنت کارت must be a number."
+                                                id="cmbSegmetns" name="SrvId" tabindex="2"></select>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 float-right form-group">
+                                                <div class="position-relative">
+                                                    <label>
+                                                        cvv2
+                                                    </label>
+                                                    <span class="desktop-error-desc">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="Cvv2" data-valmsg-replace="true"></span>
+                                                    </span>
+                                                    <div class="form-control focus">
+                                                        <input autocomplete="off"
+                                                            class="cvv2 effect-8 border-0 col-12 float-right inputbox keypad TS"
+                                                            data-nextSelector=".month" data-val="true"
+                                                            data-val-regex="cvv2 به درستی وارد نشده است"
+                                                            data-val-regex-pattern="^\d{3}$|^\d{4}$"
+                                                            data-val-required="cvv2 وارد نشده است" id="cvv2"
+                                                            inputmode="numeric" maxlength="4" name="cvv2" tabindex="3"
+                                                            title="CVV2" type="tel" value="" />
+                                                        <img src="{% static 'payments/NewIPG/content-small/v2/images/keyboard.png' %}"
+                                                            class="keypadBtn" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 float-right form-group">
+                                                <div class="position-relative">
+                                                    <label>
+                                                        تاریخ انقضاء
+                                                    </label>
+                                                    <span class="desktop-error-desc"
+                                                        style="float:none;text-align:right;">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="ExpireMonth"
+                                                            data-valmsg-replace="true"></span>
+                                                    </span>
+                                                    <span class="desktop-error-desc"
+                                                        style="float:none;text-align:right;">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="ExpireYear"
+                                                            data-valmsg-replace="true"></span>
+                                                    </span>
+
+                                                    <div class="form-control focus" style="direction:rtl">
+
+                                                        <input autocomplete="off"
+                                                            class="effect-8 border-0 inputbox text-center month"
+                                                            data-nextSelector=".year" data-val="true"
+                                                            data-val-range="ماه نامعتبر" data-val-range-max="12"
+                                                            data-val-range-min="1" data-val-regex="ماه نامعتبر"
+                                                            data-val-regex-pattern="^\d{2}$"
+                                                            data-val-required="ماه نامعتبر" id="txtExpM" maxlength="2"
+                                                            name="expire_month" placeholder="ماه" tabindex="4" type="tel"
+                                                            value="" />
+                                                        <div class="d-inline exp-date-seprate">/</div>
+                                                        <input autocomplete="off"
+                                                            class="effect-8 border-0 inputbox text-center year"
+                                                            data-nextSelector=".captcha" data-val="true"
+                                                            data-val-range="سال نامعتبر" data-val-range-max="99"
+                                                            data-val-range-min="0" data-val-regex="سال نامعتبر"
+                                                            data-val-regex-pattern="^\d{2}$"
+                                                            data-val-required="سال نامعتبر" id="txtExpY" maxlength="2"
+                                                            name="expire_year" placeholder="سال" tabindex="5" type="tel"
+                                                            value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-12 form-group">
+                                                <div class="position-relative">
+                                                    <label>
+                                                        کد امنیتی
+                                                    </label>
+                                                    <span class="desktop-error-desc">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="Captcha" data-valmsg-replace="true"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="form-control focus ">
+
+                                                    <input autocomplete="off"
+                                                        class="effect-8 border-0 col-md-12 inputbox text-right captcha p-0"
+                                                        data-nextSelector=".pin" data-val="true"
+                                                        data-val-chekpan="شماره کارت وارد نشده است"
+                                                        data-val-chekpan-param="22-10-2024"
+                                                        data-val-length="کد امنیتی به درستی وارد نشده است"
+                                                        data-val-length-max="5" data-val-length-min="5"
+                                                        data-val-required="کد امنیتی وارد نشده است" id="Captcha"
+                                                        maxlength="5" name="Captcha" tabindex="6" title="کد امنیتی"
+                                                        type="tel" value="" />
+
+                                                    <div class="captcha-holder">
+                                                        <style>
+                                                            .lol {
+                                                                text-decoration: none !important;
+                                                                cursor: pointer;
+                                                            }
+
+                                                            #capTbl tbody tr td {
+                                                                line-height: 10px;
+                                                                font-size: 16px
+                                                            }
+                                                        </style>
+                                                        <div style="display: flex; float:left; align-items:center"><img
+                                                                id="imgc1" class=""
+                                                                style="border: 1px lightgray solid;border-radius:5px;"
+                                                                src="{% static 'payments/NewIPG/captcha.png' %}" /></div>
+                                                        <script> var audioDic = {}; function refresh(id) { var aud = audioDic[id]; if (aud) { aud.pause(); aud.currentTime = 0; } audioDic[id] = undefined; $("#img" + id).attr('src', "{% static 'payments/NewIPG/captcha.ashx?id=' %}" + id + '&' + Math.random()) } var play = function (id) { var aud = audioDic[id]; if (aud == undefined) aud = new Audio('/NewIPG/sayit.ashx?id=' + id + '&' + Math.random()); aud.pause(); aud.currentTime = 0; aud.play(); audioDic[id] = aud; }</script>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <div class="position-relative">
+                                                    <label>
+                                                        رمز دوم
+                                                    </label>
+                                                    <span class="desktop-error-desc">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="Pin2" data-valmsg-replace="true"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="form-control focus pin-focus">
+
+                                                    <input autocomplete="one-time-code"
+                                                        class="effect-8 border-0 float-right inputbox keypad pin TS text-right p-0 col-md-12"
+                                                        data-nextSelector=".email" data-val="true"
+                                                        data-val-maxlength="رمز دوم باید حداکثر 12 رقم باشد"
+                                                        data-val-maxlength-max="12"
+                                                        data-val-minlength="رمز دوم باید حداقل 5 رقم باشد"
+                                                        data-val-minlength-min="5"
+                                                        data-val-regex="رمز دوم به درستی وارد نشده است"
+                                                        data-val-regex-pattern="^\d{5,12}$"
+                                                        data-val-required="رمز دوم وارد نشده است" id="pin2"
+                                                        inputmode="numeric" maxlength="12" name="password" tabindex="7"
+                                                        title="رمز  دوم کارت" type="tel" value="" />
+                                                    <button class="request-dynamicPass" type="button" tabindex="100">
+                                                        درخواست رمز پویا
+                                                        <i class="bi bi-cursor"></i>
+                                                    </button>
+                                                    <img src="{% static 'payments/NewIPG/content-small/v2/images/keyboard.png' %}"
+                                                        id="pinKeypad" class="keypadBtn float-left" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-md-6 form-group">
+
+                                                <div class="position-relative">
+                                                    <label>
+                                                        ایمیل (اختیاری)
+                                                    </label>
+                                                    <span class="desktop-error-desc">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="focus">
+
+                                                    <input autocomplete="off"
+                                                        class="effect-8 form-control focus text-center email float-none"
+                                                        data-nextSelector=".mobile" data-val="true"
+                                                        data-val-regex="فرمت ايميل صحيح نمی باشد"
+                                                        data-val-regex-pattern="^[A-Za-z0-9_\+-]+(\.[A-Za-z0-9_\+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*\.([A-Za-z]{2,4})$"
+                                                        dir="ltr" id="Email" maxlength="50" name="Email" tabindex="8"
+                                                        title="ایمیل (اختیاری)" type="text" value="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+
+                                                <div class="position-relative">
+                                                    <label>
+                                                        تلفن همراه(اختیاری)
+                                                    </label>
+                                                    <span class="desktop-error-desc">
+                                                        <span class="field-validation-valid text-danger"
+                                                            data-valmsg-for="MobileNo"
+                                                            data-valmsg-replace="true"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="focus">
+                                                    <input autocomplete="off"
+                                                        class="effect-8 form-control focus text-center mobile float-none"
+                                                        data-nextSelector=".email" data-val="true"
+                                                        data-val-regex="شماره همراه نامعتبر است"
+                                                        data-val-regex-pattern="^\d{11}$" dir="ltr" id="MobileNo"
+                                                        maxlength="11" name="MobileNo" tabindex="9"
+                                                        title=" شماره تلفن همراه" type="tel" value="" />
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-8 col-xs-12 float-right pay">
+                                                <div class="form-group">
+                                                    <button class="btn btn-success col-12 payBtn" type="submit"
+                                                        id="btnPayment" tabindex="10">
+                                                        <span>
+                                                            پرداخت
+                                                        </span>
+                                                        <span class="pyam">
+                                                            {{ bill.amount }}
+                                                            ریال
+                                                        </span>
+
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-xs-12 float-right cancel">
+                                                <div class="form-group">
+                                                    <a href={{ cancel_button }}>
+                                                        <button class="btn btn-danger col-12" type="button" id="btnCancel"
+                                                         tabindex="11">انصراف</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="acceptor-sm col-12">
+                    <div class="mt-3">
+                        <div class="row">
+                            <h3 class="col-2 mt-3">پذیرنده</h3>
+                            <div class="col-10">
+                                <img
+                                    src="data:image/png;base64,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">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="container mt-3 ">
+
+                            <div class="mt-1 row">
+
+                                <div class="boxedRight d-inline float-right">
+                                    نام فروشگاه
+                                </div>
+                                <span class="boxedLeft d-inline float-left">
+                                    {{ hotel_name }}
+                                </span>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="mt-1 row">
+
+                                <div class="boxedRight d-inline float-right">
+                                    آدرس وب سایت
+                                </div>
+
+                                <span class="boxedLeft d-inline float-left">
+                                    https://hotel.moeinarabi.ir
+                                </span>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class=" mt-1 row">
+
+                                <div class="boxedRight d-inline float-right">
+                                    کد پذیرنده
+                                </div>
+
+
+                                <span class="boxedLeft d-inline float-left">
+                                    ۴۳۸۱۴۹۲۳۶۴
+                                </span>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class=" mt-1 row">
+
+                                <div class="boxedRight d-inline float-right">
+                                    شماره ترمینال
+                                </div>
+
+
+                                <span class="boxedLeft d-inline float-left">
+                                    ۹۸۶۵۲۱۶۷
+                                </span>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+
+                    </div>
+                </div>
+                <div class="m-0 p-0 help-sm left-n-box">
+                    <div class="col-12 gray-box box-left text-center p-0" id="col3">
+                        <span class="text-center help-box d-inline-block font-weight-bold"
+                            style="margin-top:8px;">راهنمای استفاده از رمز پویا</span>
+                        <ul class="pinInfo">
+                            <li>
+                                <i class="bi bi-circle-fill"></i>
+                                رمزپویا، رمز یک بار مصرفی است که به جای رمز دوم کارت استفاده میشود
+
+
+                            </li>
+                            <li>
+                                <i class="bi bi-circle-fill"></i>
+                                براساس دستورالعمل بانک صادرکننده کارت خود، نسبت به فعال سازی رمز پویا اقدام نمایید
+                            </li>
+                            <li>
+                                <i class="bi bi-circle-fill"></i>
+                                رمز پویا را براساس روش اعلامی از طرف بانک صادر کننده کارت، به یکی از روش های زیر دریافت
+                                کنید
+                            </li>
+                            <li class="Nobullet">
+                                <ul class="p-0 m-0 mt-3 sub-list">
+                                    <li class="Nobullet">
+                                        <span class="number-bullet">۱</span>
+                                        دریافت از طریق برنامه کاربردی بانک، اینترنت بانک و یا موبایل بانک
+                                    </li>
+                                    <li class="Nobullet">
+                                        <span class="number-bullet">۲</span>
+                                        دریافت از طریق کد USSD بانک صادرکننده کارت شما
+                                    </li>
+                                    <li class="Nobullet">
+                                        <span class="number-bullet">۳</span>
+                                        دریافت از طریق زدن دکمه "رمزپویا" در درگاه پرداخت اینترنتی
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                پس از دریافت رمز به یکی از روش های فوق، رمز پویای دریافت شده را در محل تعیین شده برای
+                                "رمز دوم" وارد نمایید و سپس مابقی اطلاعات را تکمیل نمایید
+                            </li>
+                        </ul>
+
+                        <div class="help-desktop">
+                            <ul class="nav nav-tabs nav-fill mt-2 p-0 col-12" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" data-toggle="tab" href="#box1">راهنمای پرداخت</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-toggle="tab" href="#box2">نحوه ورود اطلاعات</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id='box1' class="tab-pane fade show active inner">
+                                    <div class='inner'>
+                                        <p>
+                                        <ul class="pinInfo">
+                                            <li>
+                                                <i class="bi bi-circle-fill"></i>
+                                                مشتری گرامی شما با پروتکل امن (ssl) به دروازه پرداخت تجارت الکترونیک
+                                                پارسیان که با آدرس https://pec.shaparak.ir شروع می شود متصل شده اید
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-circle-fill"></i>
+                                                خواهشمند است جهت جلوگیری از سوء استفاده های اینترنتی، آدرس مرورگر وب خود
+                                                را با آدرس مذکور مقایسه نمایید
+                                            </li>
+                                            <li>
+                                                <i class="bi bi-circle-fill"></i>
+                                                لطفاً از صحت نام فروشنده و مبلغ نمایش داده شده، اطمینان حاصل فرمایید.
+                                                برای جلوگیری از افشای رمز کارت خود حتی المقدور از صفحه کلید مجازی
+                                                استفاده فرمایید
+                                            </li>
+                                        </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id='box2' class="tab-pane fade">
+                                    <div class='inner'>
+                                        <p>
+                                        <ul class="pinInfo mt-3"
+                                            style="line-height:18px;padding-top:0px;padding-bottom:0px;padding-right:10px;font-size:0.9rem">
+                                            <li class="Nobullet">
+                                                <div class="row m-1">
+                                                    <div class="text-bullet col-4">
+                                                        <i class="bi bi-credit-card-2-back"></i>
+                                                        شماره کارت
+                                                    </div>
+                                                    <div class="col-8">
+                                                        شماره کارت 16 رقمی مندرج بر روی کارت
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="Nobullet">
+                                                <div class="row m-1">
+                                                    <div class="text-bullet col-4">
+                                                        <i class="bi bi-lock"></i>
+                                                        رمز دوم کارت
+                                                    </div>
+                                                    <div class="col-8">
+                                                        رمز دوم (یا رمز اینترنتی) دریافت شده از بانک صادرکننده و یا
+                                                        خودپرداز
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="Nobullet">
+                                                <div class="row m-1">
+                                                    <div class="text-bullet col-4">
+                                                        <i class="bi bi-lock"></i>
+                                                        CVV2
+                                                    </div>
+                                                    <div class="col-8">
+                                                        کد سه یا چهار رقمی مندرج در پشت یا روی کارت
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="Nobullet">
+                                                <div class="row m-1">
+                                                    <div class="text-bullet col-4">
+                                                        <i class="bi bi-clock"></i>
+                                                        تاریخ انقضا
+                                                    </div>
+                                                    <div class="col-8">
+                                                        ماه و سال انقضای کارت مندرج بر روی کارت
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="Nobullet">
+                                                <div class="row m-1">
+                                                    <div class="text-bullet  col-4">
+                                                        <i class="bi bi-lock"></i>
+                                                        کد امنیتی
+                                                    </div>
+                                                    <div class="col-8">
+                                                        حروف و ارقام مندرج در ذیل عنوان کد امنیتی که قابل تغییر نیز می
+                                                        باشد
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="Nobullet">
+                                                <div class="row m-1">
+                                                    <div class="text-bullet  col-4">
+                                                        <i class="bi bi-envelope"></i>
+                                                        ایمیل(اختیاری
+                                                        )
+                                                    </div>
+                                                    <div class="col-8">
+                                                        ورود آدرس ایمیل در صورت نیاز به دریافت رسید پرداخت
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="help-mobile">
+                            <span class="text-center help-box d-inline-block font-weight-bold"
+                                style="margin-top:8px;">راهنمای پرداخت</span>
+                            <ul class="pinInfo">
+                                <li>
+                                    <i class="bi bi-circle-fill"></i>
+                                    مشتری گرامی شما با پروتکل امن (ssl) به دروازه پرداخت تجارت الکترونیک پارسیان که با
+                                    آدرس https://pec.shaparak.ir شروع می شود متصل شده اید
+                                </li>
+                                <li>
+                                    <i class="bi bi-circle-fill"></i>
+                                    خواهشمند است جهت جلوگیری از سوء استفاده های اینترنتی، آدرس مرورگر وب خود را با آدرس
+                                    مذکور مقایسه نمایید
+                                </li>
+                                <li>
+                                    <i class="bi bi-circle-fill"></i>
+                                    لطفاً از صحت نام فروشنده و مبلغ نمایش داده شده، اطمینان حاصل فرمایید. برای جلوگیری
+                                    از افشای رمز کارت خود حتی المقدور از صفحه کلید مجازی استفاده فرمایید
+                                </li>
+                            </ul>
+                            <div class="DataEntry-help">
+                                <span class="text float-right">
+                                    نحوه ورود اطلاعات
+                                </span>
+                                <span class="line float-right">
+                                </span>
+                                <div class="clearfix"></div>
+
+                                <ul class="pinInfo mt-3"
+                                    style="line-height:18px;padding-top:0px;padding-bottom:0px;padding-right:10px;font-size:0.9rem">
+                                    <li class="Nobullet">
+                                        <div class="row m-1">
+                                            <div class="text-bullet col-4">
+                                                <i class="bi bi-credit-card-2-back"></i>
+                                                شماره کارت
+                                            </div>
+                                            <div class="col-8">
+                                                شماره کارت 16 رقمی مندرج بر روی کارت
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="Nobullet">
+                                        <div class="row m-1">
+                                            <div class="text-bullet col-4">
+                                                <i class="bi bi-lock"></i>
+                                                رمز دوم کارت
+                                            </div>
+                                            <div class="col-8">
+                                                رمز دوم (یا رمز اینترنتی) دریافت شده از بانک صادرکننده و یا خودپرداز
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="Nobullet">
+                                        <div class="row m-1">
+                                            <div class="text-bullet col-4">
+                                                <i class="bi bi-lock"></i>
+                                                CVV2
+                                            </div>
+                                            <div class="col-8">
+                                                کد سه یا چهار رقمی مندرج در پشت یا روی کارت
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="Nobullet">
+                                        <div class="row m-1">
+                                            <div class="text-bullet col-4">
+                                                <i class="bi bi-clock"></i>
+                                                تاریخ انقضا
+                                            </div>
+                                            <div class="col-8">
+                                                ماه و سال انقضای کارت مندرج بر روی کارت
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="Nobullet">
+                                        <div class="row m-1">
+                                            <div class="text-bullet  col-4">
+                                                <i class="bi bi-lock"></i>
+                                                کد امنیتی
+                                            </div>
+                                            <div class="col-8">
+                                                حروف و ارقام مندرج در ذیل عنوان کد امنیتی که قابل تغییر نیز می باشد
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="Nobullet">
+                                        <div class="row m-1">
+                                            <div class="text-bullet  col-4">
+                                                <i class="bi bi-envelope"></i>
+                                                ایمیل(اختیاری)
+                                            </div>
+                                            <div class="col-8 ">
+                                                ورود آدرس ایمیل در صورت نیاز به دریافت رسید پرداخت
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="footer-sm col-12">
+
+                    <h6 class="text-center mt-3 contactus">
+                        اطلاعات تماس پشتیبانی
+
+                        ۲۳۱۸ - ۰۲۱
+                    </h6>
+                    <div class="text-center">
+                        <span class="copyright d-block">
+                            کلیه حقوق متعلق به شرکت تجارت الکترونیک پارسیان می باشد
+
+                        </span>
+                        <div class="blind">
+                            حامی حقوق روشندلان
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <form action="{% static 'payments/NewIPG/CancelPayment' %}" method="post" id="CancelPaymentForm">
+                <input data-val="true" data-val-number="The field Token must be a number."
+                    data-val-required="The Token field is required." id="Token" name="Token" type="hidden"
+                    value="299316806893649" />
+            </form>
+
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="V2Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+
+                </div>
+                <div class="modal-body text-right">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">بستن</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        var options = {
+            baseUrl: 'https://pec.shaparak.ir/NewIPG',
+            IsSubmitPaymentForm: false,
+            captchaUrl: "https://pec.shaparak.ir/NewIPG/InvalidToken",
+            invalidTokenUrl: "/InvalidToken",
+            tokenTimeout: 575,
+            hasTspData: false,
+            keyPadIconPath: "{% static 'payments/NewIPG/Content/New97/Images/keypad.png' %}",
+            requestTime: '10/22/2024 6:54:22 PM',
+            secondsPast: '24.263031',
+            isMerchantClubAcceptable: 'False'.toLowerCase(),
+            binsForClub: 'null',
+            token: '299316806893649',
+            mobile: ''
+        };
+    </script>
+
+    <script src="{% static 'payments/NewIPG/Content/v2/lib/jquery/dist/jquery.min.js' %}"></script>
+
+    <script src="{% static 'payments/NewIPG/content-small/v2/lib/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script
+        src="{% static 'payments/NewIPG/content-small/v2/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js' %}"></script>
+
+    <script src="{% static 'payments/NewIPG/Content/v2/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/v2/js/jquery.plugin.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/V22/lib/Toastr/Toastr.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/v2/js/modernizr-custom.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/v2/lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/v2/lib/sweetalert/sweetalert.min.js' %}"></script>
+
+    <script src="{% static 'payments/NewIPG/Content/V22/js/mask/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/V22/js/CountdownTimer.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/v2/js/Main.min.js' %}"></script>
+    <script src="{% static 'payments/NewIPG/Content/v2/js/VirtualNumpad.min.js' %}"></script>
+
+
+    <script src="{% static 'payments/NewIPG/Content/V22/lib/simplebar/simplebar.min.js' %}"></script>
+    <script type="text/javascript">
+        docReady(function () {
+            DocumentReadyOptions(options);
+
+            startTimer({
+                totalTime: {{ time_out }},
+                display: document.querySelector('#countdown-lg'),
+                showprogress: true,
+                progressWidth: 100,
+                progressSelector: document.querySelector('#countdownProgress-lg'),
+                pastSecond: _options.secondsPast,
+                callbackfunction: function () {
+                    window.location.href = _options.baseUrl + _options.invalidTokenUrl
+                },
+            });
+
+
+            startTimer({
+                totalTime: {{ time_out }},
+                display: document.querySelector('#countdown-sm'),
+                showprogress: false,
+                pastSecond: _options.secondsPast,
+                callbackfunction: function () {
+                    window.location.href = _options.baseUrl + _options.invalidTokenUrl
+                },
+            });
+
+            if ('False'.trim().toLowerCase() == 'true') {
+                swal({
+                    position: 'top-end',
+                    type: 'error',
+                    title: 'خطا در عملیات پرداخت',
+                    text: '',
+                    showConfirmButton: true,
+                    confirmButtonText: "متوجه شدم",
+                })
+            }
+
+
+            var myElement = document.getElementById('box2');
+            var amount = '223000';
+            new SimpleBar(myElement, { autoHide: false });
+        });
+
+    </script>
+
+
+
+</body>
+<!--[if IE 9]>
+      <link href="https://pec.shaparak.ir/NewIPG/Content/v2/css/bootstrap-ie9.min.css" rel="stylesheet" />
+        <script src="https://pec.shaparak.ir/NewIPG/Content/v2/js/bootstrap-ie9.min.js"></script>
+  <![endif]-->
+<!--[if IE 8]>
+        <link href="https://pec.shaparak.ir/NewIPG/Content/v2/css/bootstrap-ie8.min.css" rel="stylesheet" />
+        <script src="https://pec.shaparak.ir/NewIPG/Content/v2/js/html5shiv@3.7.3"></script>
+        <script src="https://pec.shaparak.ir/NewIPG/Content/v2/js/jquery-1.12.4.min.js"></script>
+    <![endif]-->
+<!--[if lt IE 8]>
+        <link href="https://pec.shaparak.ir/NewIPG/Content/v2/css/bootstrap-ie7.min.css" rel="stylesheet" />
+        <script src="https://pec.shaparak.ir/NewIPG/Content/v2/js/html5shiv@3.7.3"></script>
+        <script src="https://pec.shaparak.ir/NewIPG/Content/v2/js/jquery-1.12.4.min.js"></script>
+    <![endif]-->
+
+</html>

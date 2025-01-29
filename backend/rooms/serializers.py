@@ -3,7 +3,7 @@ from rooms.models import Room, RoomType, RoomImage
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    room_type = serializers.HyperlinkedRelatedField(read_only=True, view_name='types-detail')
+    room_type = serializers.StringRelatedField()
 
     class Meta:
         model = Room

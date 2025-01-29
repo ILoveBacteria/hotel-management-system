@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rooms',
     'reservations',
     'payments',
+    'messages_',
 ]
 
 MIDDLEWARE = [
@@ -148,12 +149,7 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'core.rest_authentication.CsrfExemptSessionAuthentication',
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['core.rest_authentication.CsrfExemptSessionAuthentication'],
 }
 
 # Spectacular settings
@@ -161,7 +157,7 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Bacteria Hotel API',
     'DESCRIPTION': 'Hotel management system',
-    'VERSION': '0.5.1-beta',
+    'VERSION': '0.7.0-beta',
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
@@ -189,4 +185,15 @@ INTERNAL_IPS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', cast=list)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS', cast=list)
+
+# Email SMTP server
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.c1.liara.email'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True

@@ -4,12 +4,16 @@ from django.shortcuts import get_object_or_404
 from django.db import transaction
 from rest_framework import viewsets, mixins, generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework import filters
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema_view
 
 from rooms import swagger
 from rooms.models import Room, RoomType, RoomImage
 from rooms.serializers import RoomSerializer, RoomTypeSerializer, RoomImageSerializer
 from rooms.permissions import ReadOnly
+from rooms.filters import RoomTypeFilter
 from reservations.serializers import ReserveCreateSerializer
 from payments.models import Bill
 
@@ -30,6 +34,9 @@ class RoomTypeViewSet(viewsets.ModelViewSet):
     serializer_class = RoomTypeSerializer
     queryset = RoomType.objects.all()
     permission_classes = [IsAdminUser|ReadOnly]
+    filterset_class = RoomTypeFilter
+    search_fields = ['name', 'description']
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     
     
 @extend_schema_view(**swagger.room_image_viewset)

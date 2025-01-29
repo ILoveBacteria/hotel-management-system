@@ -27,7 +27,7 @@ class Room(models.Model):
     room_type = models.ForeignKey('RoomType', on_delete=models.CASCADE, related_name='rooms')
     
     def __str__(self):
-        return self.room_number
+        return f'{self.room_number} - {self.room_type}'
     
 
 class RoomType(models.Model):

@@ -48,3 +48,10 @@ current_user_bills_view = {
         description="Retrieve a list of bills for the currently authenticated user. Permission: Only authenticated users can access their own bills."
     )
 }
+
+user_list_view = {
+    'get': extend_schema(
+        summary="List all users",
+        description="Retrieve a list of all users. Permission: Only admin users can access this endpoint."
+    )
+}

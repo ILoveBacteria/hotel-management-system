@@ -4,7 +4,7 @@ from payments.models import Bill
 
 
 class BillSerializer(serializers.ModelSerializer):
-    reserve = serializers.HyperlinkedRelatedField(view_name='reserves-detail', read_only=True)
+    reserve = serializers.StringRelatedField()
     
     class Meta:
         model = Bill
