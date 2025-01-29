@@ -52,10 +52,10 @@
                 first_name: userProfile?.first_name || "",
                 last_name: userProfile?.last_name || "",
                 guest_profile: {
-                    phone_number: userProfile?.guest_profile.phone_number || "",
-                    national_id: userProfile?.guest_profile.national_id || "",
-                    address: userProfile?.guest_profile.address || "",
-                    avatar: userProfile?.guest_profile.avatar || null
+                    phone_number: userProfile?.guest_profile?.phone_number || "",
+                    national_id: userProfile?.guest_profile?.national_id || "",
+                    address: userProfile?.guest_profile?.address || "",
+                    avatar: userProfile?.guest_profile?.avatar || null
                 }
             };
             
@@ -75,26 +75,20 @@
         success = false;
 
         try {
-            // Handle avatar upload first if there's a new file
+            const formDataUpload = new FormData();
             if (avatarFile) {
-                const formDataUpload = new FormData();
-                formDataUpload.append('avatar', avatarFile);
-                // Note: This endpoint would need to be implemented in your API
-                await fetch(`${PUBLIC_BASE_URL}/users/profile/${userProfile.id}/avatar/`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    body: formDataUpload
-                });
+                formDataUpload.append('guest_profile.avatar', avatarFile);
             }
+            formDataUpload.append('first_name', formData.first_name);
+            formDataUpload.append('last_name', formData.last_name);
+            formDataUpload.append('guest_profile.phone_number', formData.guest_profile.phone_number);
+            formDataUpload.append('guest_profile.national_id', formData.guest_profile.national_id);
+            formDataUpload.append('guest_profile.address', formData.guest_profile.address);
 
-            // Update profile data
             const response = await fetch(`${PUBLIC_BASE_URL}/users/profile/${userProfile.id}/`, {
                 method: 'PATCH',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
+                body: formDataUpload
             });
 
             if (!response.ok) {
@@ -109,6 +103,7 @@
             // Reset file input
             avatarFile = null;
             avatarPreview = null;
+
         } catch (err) {
             console.error("Failed to update profile:", err);
             error = "Failed to update profile. Please try again.";
@@ -158,9 +153,9 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            {#if userProfile.guest_profile.avatar || avatarPreview}
+                            {#if userProfile?.guest_profile?.avatar || avatarPreview}
                                 <img
-                                    src={avatarPreview || userProfile.guest_profile.avatar || ''}
+                                    src={avatarPreview || userProfile?.guest_profile?.avatar || ''}
                                     alt={userProfile.first_name}
                                     class="w-20 h-20 rounded-full object-cover"
                                 />
