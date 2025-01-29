@@ -77,7 +77,7 @@ class PaymentGatewayView(View):
         if bill.reserve.user.email:
             send_mail(
                 subject='Payment Done',
-                message=f'Payment for bill {bill.id} is done successfully.\nCheck-in date: {bill.reserve.check_in_date}\nCheck-out date: {bill.reserve.check_out_date}\nRoom: {bill.reserve.room.name}\nTotal price: {bill.total_price}',
+                message=f'Payment for bill {bill.id} is done successfully.\nCheck-in date: {bill.reserve.check_in}\nCheck-out date: {bill.reserve.check_out}\nRoom: {bill.reserve.room.room_type.name}\nTotal price: {bill.amount}',
                 from_email='admin@moeinarabi.ir',
                 recipient_list=[bill.reserve.user.email],
                 fail_silently=False,
