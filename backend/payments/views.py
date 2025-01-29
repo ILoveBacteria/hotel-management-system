@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views import View
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
 
 from rest_framework import generics, status
 from rest_framework.views import Response
@@ -73,4 +74,12 @@ class PaymentGatewayView(View):
         bill.save()
         bill.reserve.status = Reserve.PAID
         bill.reserve.save()
+        if bill.reserve.user.email:
+            send_mail(
+                subject='Payment Done',
+                message=f'Payment for bill {bill.id} is done successfully.\nCheck-in date: {bill.reserve.check_in_date}\nCheck-out date: {bill.reserve.check_out_date}\nRoom: {bill.reserve.room.name}\nTotal price: {bill.total_price}',
+                from_email='admin@moeinarabi.ir',
+                recipient_list=[bill.reserve.user.email],
+                fail_silently=False,
+            )   
         return redirect('https://hotel.moeinarabi.ir/user/dashboard/payments')
